@@ -1,36 +1,51 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { FormControl } from '@angular/forms';
+import { Login } from '../../interfaces/login';
+// import Swal from 'sweetalert2'
 
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
-  styles: ``
+  styles: `
+            img{
+              width:40%;
+            }
+          `,
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
 
-  private fb          = inject( FormBuilder );
-  private authService = inject( AuthService );
-  private router      = inject( Router )
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
+  ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+  }
 
+  // value: number | undefined;
 
-  public myForm: FormGroup = this.fb.group({
-    email:    ['fernando@google.com', [ Validators.required, Validators.email ]],
-    password: ['123456', [ Validators.required, Validators.minLength(6) ]],
-  });
+  // constructor(private router: Router) {}
 
+  get loginSend(): Login {
+    return this.loginForm.value as Login;
+  }
 
-  login() {
-    const { email, password } = this.myForm.value;
+  onSubmit() {
+    console.log(this.loginForm.value);
+    if (this.loginForm.invalid) {
+      return;
+    }
 
-    this.authService.login(email, password)
-      .subscribe({
-        next: () => this.router.navigateByUrl('/recursos'),
-        error: (message) => {
-          // Swal.fire('Error', message, 'error' )
-        }
-      })
-
+    this.authService.login(this.loginSend).subscribe({
+      next: () => this.router.navigateByUrl('/recursos'),
+    });
   }
 }
