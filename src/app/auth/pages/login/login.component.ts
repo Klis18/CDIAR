@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormControl } from '@angular/forms';
 import { Login } from '../../interfaces/login';
+import { HttpInterceptorService } from '../../../shared/services/http.interceptor.service';
 // import Swal from 'sweetalert2'
 
 @Component({
@@ -45,7 +46,9 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.login(this.loginSend).subscribe({
-      next: () => this.router.navigateByUrl('/recursos'),
+      next: () => {
+        this.router.navigateByUrl('/recursos');
+      },
     });
   }
 }

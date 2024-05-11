@@ -6,6 +6,7 @@ import { EmailVerification } from '../interfaces/email-verification';
 import { Login } from '../interfaces/login';
 import { HelperHttpService } from '../../shared/services/helper.http.service';
 import { Role } from '../interfaces/role';
+import { HttpInterceptorService } from '../../shared/services/http.interceptor.service';
 
 @Injectable({
   providedIn: 'root',
