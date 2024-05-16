@@ -55,8 +55,9 @@ export class RegistroUsuarioComponent {
     }
 
     this.authService.registrarUsuario(this.currentUser).subscribe((user) => {
-      this.router.navigate(['/auth/verify']);
-      console.log(user);
+      this.router.navigate(['/auth/verify'], {
+        queryParams: { email: this.userGroup.value.email },
+      });
     });
   }
 }

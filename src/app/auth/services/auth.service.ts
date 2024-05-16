@@ -7,6 +7,7 @@ import { Login } from '../interfaces/login';
 import { HelperHttpService } from '../../shared/services/helper.http.service';
 import { Role } from '../interfaces/role';
 import { HttpInterceptorService } from '../../shared/services/http.interceptor.service';
+import { Email } from '../interfaces/email';
 
 @Injectable({
   providedIn: 'root',
@@ -74,5 +75,9 @@ export class AuthService {
 
   verifyUser(verification: EmailVerification) {
     return this.http.post<EmailVerification>('login/verifyuser', verification);
+  }
+
+  resendVerificationMail(email: Email) {
+    return this.http.post<Email>('usuario/resendverificationmail', email);
   }
 }

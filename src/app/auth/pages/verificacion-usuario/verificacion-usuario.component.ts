@@ -3,19 +3,23 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EmailVerification } from '../../interfaces/email-verification';
 import { AuthService } from '../../services/auth.service';
+import { Email } from '../../interfaces/email';
 
 @Component({
   selector: 'verificacion-usuario',
   templateUrl: './verificacion-usuario.component.html',
-  styles: ``
+  styles: ``,
 })
 export class VerificacionUsuarioComponent {
-
   value: any;
 
   public userGroup = new FormGroup({
     email: new FormControl<string>(''),
     token: new FormControl<string>(''),
+  });
+
+  public emailGroup = new FormGroup({
+    email: new FormControl<string>(''),
   });
 
   constructor(
@@ -35,6 +39,10 @@ export class VerificacionUsuarioComponent {
     return this.userGroup.value as EmailVerification;
   }
 
+  get email(): Email {
+    return this.emailGroup.value as Email;
+  }
+
   onSubmit() {
     if (this.userGroup.invalid) return;
 
@@ -43,5 +51,9 @@ export class VerificacionUsuarioComponent {
     });
   }
 
-  
+  reenviarCorreo() {
+    this.authService.resendVerificationMail(this.email).subscribe((email) => {
+      this.router.navigate(['/auth/verify']);
+    });
+  }
 }
