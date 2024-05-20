@@ -12,6 +12,7 @@ import localeEsEC from '@angular/common/locales/es-EC';
 
 import { registerLocaleData } from '@angular/common';
 import { HttpInterceptorService } from './shared/services/http.interceptor.service';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 registerLocaleData(localeEsEC);
 
@@ -35,6 +36,7 @@ registerLocaleData(localeEsEC);
       provide: LOCALE_ID,
       useValue: 'es-EC',
     },
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent],
 })

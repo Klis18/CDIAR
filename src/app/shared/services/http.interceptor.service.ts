@@ -9,12 +9,28 @@ import {
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { JsonResponse } from '../interfaces/json-response';
+import { MatDialog } from '@angular/material/dialog';
+import { CardMessageComponent } from '../pages/card-message/card-message.component';
+
+// export interface DialogData {
+//   mensaje?: string;
+// }
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpInterceptorService implements HttpInterceptor {
-  constructor() {}
+  mensaje: string = '';
+  constructor(public dialog: MatDialog) {}
+
+  openDialog(message: string) {
+    this.dialog.open(CardMessageComponent, {
+      data: {
+        mensaje: message
+      },
+      width: '50vh',
+    });
+  }
 
   /**
    * Interceptor para manejar las respuestas HTTP.
@@ -40,8 +56,9 @@ export class HttpInterceptorService implements HttpInterceptor {
                 break;
               case 400:
                 // Código de estado 400 (Bad Request)
-                window.alert(message);
-                window.location.href = '/registro';
+                // window.alert(message);
+                 this.openDialog(message);
+                // window.location.href = '/registro';
                 // Ejemplo: Manejar errores de validación o mostrar un mensaje al usuario
                 break;
               case 401:
