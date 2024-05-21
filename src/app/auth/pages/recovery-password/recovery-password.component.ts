@@ -12,6 +12,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class RecoveryPasswordComponent {
   value: any;
+  siteKey:string;
 
   public userGroup = new FormGroup({
     email: new FormControl<string>(''),
@@ -26,7 +27,9 @@ export class RecoveryPasswordComponent {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    this.siteKey='6Ld5KuQpAAAAAEY05mmbzmOX0lO9teZ8VAlyUUOO';
+  }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {

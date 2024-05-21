@@ -11,6 +11,7 @@ import { SharedModule } from '../shared/shared.module';
 import { DataRequiredMessageComponent } from './components/data-required-message/data-required-message.component';
 import { RecoveryEmailComponent } from './pages/recovery-email/recovery-email.component';
 import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-pa
     AuthRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    NgxCaptchaModule
   ],
   exports: [
     RegistroUsuarioComponent,

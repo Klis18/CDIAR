@@ -13,7 +13,7 @@ import { CustomValidators } from '../../../../custom/custom-validators';
 })
 export class RegistroUsuarioComponent {
   value: string | undefined;
-
+  siteKey:string;
   // userTypes: any;
 
   userTypes: { label: string; value: string }[] = [];
@@ -45,7 +45,9 @@ export class RegistroUsuarioComponent {
     });
   }
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {
+    this.siteKey='6Ld5KuQpAAAAAEY05mmbzmOX0lO9teZ8VAlyUUOO';
+  }
 
   get currentUser(): User {
     const user = this.userGroup.value as User;
