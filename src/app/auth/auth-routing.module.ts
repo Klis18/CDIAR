@@ -4,6 +4,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegistroUsuarioComponent } from './pages/registro-usuario/registro-usuario.component';
 import { VerificacionUsuarioComponent } from './pages/verificacion-usuario/verificacion-usuario.component';
 import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component';
+import { RecoveryEmailComponent } from './pages/recovery-email/recovery-email.component';
+import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
 
 const routes: Routes = [
   {
@@ -13,6 +15,8 @@ const routes: Routes = [
       {path: 'login', component: LoginComponent},
       {path: 'registro', component: RegistroUsuarioComponent},
       {path:'verify', component: VerificacionUsuarioComponent},
+      {path:'recovery',component: RecoveryEmailComponent},
+      {path:'new-password',component: RecoveryPasswordComponent},
       {path:'**', redirectTo:'login'}
     ]
   

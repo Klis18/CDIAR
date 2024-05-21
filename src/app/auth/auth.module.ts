@@ -8,6 +8,9 @@ import { VerificacionUsuarioComponent } from './pages/verificacion-usuario/verif
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component';
 import { SharedModule } from '../shared/shared.module';
+import { DataRequiredMessageComponent } from './components/data-required-message/data-required-message.component';
+import { RecoveryEmailComponent } from './pages/recovery-email/recovery-email.component';
+import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
 
 
 @NgModule({
@@ -15,7 +18,10 @@ import { SharedModule } from '../shared/shared.module';
     LoginComponent,
     RegistroUsuarioComponent,
     VerificacionUsuarioComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    DataRequiredMessageComponent,
+    RecoveryEmailComponent,
+    RecoveryPasswordComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +33,6 @@ import { SharedModule } from '../shared/shared.module';
   exports: [
     RegistroUsuarioComponent,
     LoginComponent,
-    VerificacionUsuarioComponent
-  ]
+    VerificacionUsuarioComponent,  ]
 })
 export class AuthModule { }

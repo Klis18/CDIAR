@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../../interfaces';
 import { Role } from '../../interfaces/role';
 import { AuthService } from '../../services/auth.service';
+import { CustomValidators } from '../../../../custom/custom-validators';
 
 @Component({
   selector: 'registro-usuario',
@@ -20,11 +21,19 @@ export class RegistroUsuarioComponent {
   // formGroup: FormGroup = new FormGroup({});
 
   public userGroup = new FormGroup({
-    username: new FormControl<string>(''),
-    email: new FormControl<string>(''),
-    phoneNumber: new FormControl<string>(''),
-    password: new FormControl<string>(''),
-    rolId: new FormControl<string>(''),
+    identityNumber: new FormControl<string>('', Validators.required),
+    username: new FormControl<string>('', Validators.required),
+    userlastname: new FormControl<string>('', Validators.required),
+    email: new FormControl<string>('', (Validators.required)),
+    phoneNumber: new FormControl<string>('', Validators.required),
+    password: new FormControl<string>('', Validators.required),
+    passwordConfirm: new FormControl<string>('', Validators.required),
+    rolId: new FormControl<string>('', Validators.required),
+  },{
+    validators: CustomValidators.mustBeEqual(
+      'password',
+      'passwordConfirm'
+    ),
   });
 
   ngOnInit() {
