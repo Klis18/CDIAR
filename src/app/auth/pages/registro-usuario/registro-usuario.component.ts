@@ -24,7 +24,7 @@ export class RegistroUsuarioComponent {
     identityNumber: new FormControl<string>('', Validators.required),
     username: new FormControl<string>('', Validators.required),
     userlastname: new FormControl<string>('', Validators.required),
-    email: new FormControl<string>('', (Validators.required)),
+    email: new FormControl<string>('', Validators.required),
     phoneNumber: new FormControl<string>('', Validators.required),
     password: new FormControl<string>('', Validators.required),
     passwordConfirm: new FormControl<string>('', Validators.required),

@@ -6,6 +6,10 @@ export class CustomValidators extends Validators {
     return /^\d+$/.test(control.value) ? null : { onlyNumbers: true };
   }
 
+  static onlyLetters(control: AbstractControl): ValidationErrors | null {
+  return /^[a-zA-Z\s]+$/.test(control.value) ? null : { onlyLetters: true };
+  }
+
   static mustBeEqual(nombrePrimerControl: string, nombreSegundoControl: string): ValidatorFn {
     return (group: AbstractControl): ValidationErrors | null => {
       const primerControl = group.get(nombrePrimerControl);
