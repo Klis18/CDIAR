@@ -29,7 +29,6 @@ export class HomeLayoutComponent implements OnInit, OnDestroy {
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
- 
   ngOnInit() {
     this.homeService.obtenerDatosMenu().subscribe((user) => {
       console.log(user);

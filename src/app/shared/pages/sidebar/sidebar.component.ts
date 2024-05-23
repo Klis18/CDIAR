@@ -1,11 +1,15 @@
-import {Component} from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AuthService } from '../../../auth/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sidebar',
   templateUrl: './sidebar.component.html',
-  styles: ``
+  styles: ``,
 })
-export class SidebarComponent{
+export class SidebarComponent {
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   public isDropdownVisible = false;
 
@@ -13,53 +17,57 @@ export class SidebarComponent{
     this.isDropdownVisible = !this.isDropdownVisible;
   }
 
-
   menuOptions = [
-    { 
+    {
       icon: 'home',
-      name: 'Inicio', 
+      name: 'Inicio',
       route: '/inicio',
       expanded: false,
-      subOptions: []
+      subOptions: [],
     },
-    { 
+    {
       icon: 'collections_bookmark',
-      name: 'Recursos Académicos', 
+      name: 'Recursos Académicos',
       route: '/productos',
       expanded: false,
-      subOptions: []
+      subOptions: [],
     },
-    { 
+    {
       icon: 'spa',
-      name: 'Aprender', 
+      name: 'Aprender',
       route: '/contacto',
       expanded: false,
       subOptions: [
         { name: 'Flashcards', route: '' },
         { name: 'Videolearn', route: '' },
-      ]
+      ],
     },
-    { 
+    {
       icon: 'assignment',
-      name: 'Simuladores', 
+      name: 'Simuladores',
       route: '/productos',
       expanded: false,
-      subOptions: []
+      subOptions: [],
     },
-    { 
+    {
       icon: 'trending_up',
-      name: 'Metas y Rendimiento', 
+      name: 'Metas y Rendimiento',
       route: '/contacto',
       expanded: false,
       subOptions: [
         { name: 'Metas', route: '' },
         { name: 'Rendimiento', route: '' },
-      ]
-    }
+      ],
+    },
     // Agrega aquí más opciones si las necesitas
   ];
 
   toggleExpand(option: any) {
     option.expanded = !option.expanded;
+  }
+
+  onClick() {
+    this.authService.logout();
+    this.router.navigate(['/auth/login']);
   }
 }
