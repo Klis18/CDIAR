@@ -29,17 +29,12 @@ export class HomeLayoutComponent implements OnInit, OnDestroy {
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
-  getUser(): Home {
-    return {
-      userName: this.userName,
-      rol: this.rol,
-    };
-  }
-
+ 
   ngOnInit() {
     this.homeService.obtenerDatosMenu().subscribe((user) => {
-      this.getUser().userName = user.data.userName;
-      this.getUser().rol = user.data.rol;
+      console.log(user);
+      this.userName = user.data.userName;
+      this.rol = user.data.rol;
     });
   }
 
