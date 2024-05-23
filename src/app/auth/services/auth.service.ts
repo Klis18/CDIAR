@@ -36,9 +36,13 @@ export class AuthService {
 
   login(login: Login): Observable<boolean> {
     return this.http.post<LoginResponse>('login', login).pipe(
-      map(({ data: { user, token } }) => this.setAuthentication(user, token)),
-      catchError((err) => throwError(() => err.error.message))
-    );
+      map(({ data }) => {
+        if(data) {
+          const { user, token } = data;
+          return this.setAuthentication(user, token);
+        }
+        return false;  
+      }));
   }
 
   checkAuthStatus(): Observable<boolean> {

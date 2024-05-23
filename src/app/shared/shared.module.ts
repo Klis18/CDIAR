@@ -5,12 +5,14 @@ import { SharedRoutingModule } from './shared-routing.module';
 import { FooterComponent } from './pages/footer/footer.component';
 import { CardMessageComponent } from './pages/card-message/card-message.component';
 import { MaterialModule } from '../material/material.module';
+import { SidebarComponent } from './pages/sidebar/sidebar.component';
 
 
 @NgModule({
   declarations: [
     FooterComponent,
-    CardMessageComponent
+    CardMessageComponent,
+    SidebarComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +20,8 @@ import { MaterialModule } from '../material/material.module';
     MaterialModule
   ],
   exports: [
-    FooterComponent
+    FooterComponent,
+    SidebarComponent
   ]
 })
 export class SharedModule { }
