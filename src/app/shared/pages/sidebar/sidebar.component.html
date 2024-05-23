@@ -1,0 +1,27 @@
+<div class="w-full flex bg-blue-900 h-14">
+  <!-- <mat-icon class="text-white text-2xl">menu</mat-icon> -->
+  <p>Bienvenido</p>
+  <hr>
+</div>
+<div class="w-64 h-screen bg-blue-950 text-white -mt-10">
+  <nav class="mt-10">
+    <div *ngFor="let option of menuOptions" class="flex flex-col">
+      <a
+        (click)="toggleExpand(option)"
+        class="mx-4 my-2 hover:bg-gray-700 p-2 rounded cursor-pointer"
+        >
+        <mat-icon>{{ option.icon }}</mat-icon>
+        {{ option.name }}
+        </a
+
+      >
+      <div
+        *ngFor="let subOption of option.subOptions"
+        [ngClass]="{ hidden: !option.expanded }"
+        class="ml-6 my-1 hover:bg-gray-700 p-2 rounded"
+      >
+        <a [routerLink]="subOption.route">{{ subOption.name }}</a>
+      </div>
+    </div>
+  </nav>
+</div>

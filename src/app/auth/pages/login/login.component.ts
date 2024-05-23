@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-
+    
     this.authService.login(this.loginSend).subscribe({
       next: () => {
         this.router.navigateByUrl('/recursos');
