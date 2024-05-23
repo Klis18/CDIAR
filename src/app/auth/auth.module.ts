@@ -12,7 +12,7 @@ import { DataRequiredMessageComponent } from './components/data-required-message
 import { RecoveryEmailComponent } from './pages/recovery-email/recovery-email.component';
 import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
 import { NgxCaptchaModule } from 'ngx-captcha';
-
+import { VerificacionTokenComponent } from './pages/verication-token/verificacion-token.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,8 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     AuthLayoutComponent,
     DataRequiredMessageComponent,
     RecoveryEmailComponent,
-    RecoveryPasswordComponent
+    RecoveryPasswordComponent,
+    VerificacionTokenComponent,
   ],
   imports: [
     CommonModule,
@@ -30,11 +31,12 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
-    NgxCaptchaModule
+    NgxCaptchaModule,
   ],
   exports: [
     RegistroUsuarioComponent,
     LoginComponent,
-    VerificacionUsuarioComponent,  ]
+    VerificacionUsuarioComponent,
+  ],
 })
-export class AuthModule { }
+export class AuthModule {}

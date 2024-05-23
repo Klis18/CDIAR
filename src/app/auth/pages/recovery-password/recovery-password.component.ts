@@ -2,61 +2,49 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Email } from '../../interfaces/email';
-import { EmailVerification } from '../../interfaces/email-verification';
 import { AuthService } from '../../services/auth.service';
+import { encryptStorage } from '../../../shared/utils/storage';
+import { ForgotPassword } from '../../interfaces/forgot-password';
 
 @Component({
   selector: 'app-recovery-password',
   templateUrl: './recovery-password.component.html',
-  styles: ``
+  styles: ``,
 })
 export class RecoveryPasswordComponent {
   value: any;
-  siteKey:string;
-
-  public userGroup = new FormGroup({
-    email: new FormControl<string>(''),
-    token: new FormControl<string>(''),
-  });
-
-  public emailGroup = new FormGroup({
-    email: new FormControl<string>(''),
-  });
+  siteKey: string;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.siteKey='6Ld5KuQpAAAAAEY05mmbzmOX0lO9teZ8VAlyUUOO';
+    this.siteKey = '6Ld5KuQpAAAAAEY05mmbzmOX0lO9teZ8VAlyUUOO';
   }
 
-  ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      const email = params['email'];
-      this.userGroup.get('email')?.setValue(email);
-    });
-  }
+  public userGroup = new FormGroup({
+    newPassword: new FormControl<string>(''),
+  });
 
-  get emailVerification(): EmailVerification {
-    return this.userGroup.value as EmailVerification;
-  }
-
-  get email(): Email {
-    return this.emailGroup.value as Email;
+  get ForgotPassword(): ForgotPassword {
+    return this.userGroup.value as ForgotPassword;
   }
 
   onSubmit() {
     if (this.userGroup.invalid) return;
 
-    this.authService.verifyUser(this.emailVerification).subscribe((email) => {
-      this.router.navigate(['/auth/login']);
-    });
-  }
+    const userEmail = encryptStorage.getItem('user-email');
+    const email = JSON.parse(userEmail);
+    this.ForgotPassword.email = email.email;
 
-  reenviarCorreo() {
-    this.authService.resendVerificationMail(this.email).subscribe((email) => {
-      this.router.navigate(['/auth/verify']);
+    const token = encryptStorage.getItem('token');
+    this.ForgotPassword.token = token;
+
+    this.authService.resetpassword(this.ForgotPassword).subscribe((email) => {
+      encryptStorage.removeItem('user-email');
+      encryptStorage.removeItem('token');
+      this.router.navigate(['/auth/login']);
     });
   }
 }

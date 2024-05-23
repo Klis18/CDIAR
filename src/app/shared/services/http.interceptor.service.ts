@@ -26,7 +26,7 @@ export class HttpInterceptorService implements HttpInterceptor {
   openDialog(message: string) {
     this.dialog.open(CardMessageComponent, {
       data: {
-        mensaje: message
+        mensaje: message,
       },
       width: '50vh',
     });
@@ -51,13 +51,14 @@ export class HttpInterceptorService implements HttpInterceptor {
             const message = (event.body as JsonResponse<any>).message;
             switch (statusCode) {
               case 200:
-                // Código de estado 200 (OK)
-                // Ejemplo: Procesar la respuesta exitosa
+                if (message != null) {
+                  this.openDialog(message);
+                }
                 break;
               case 400:
                 // Código de estado 400 (Bad Request)
                 // window.alert(message);
-                 this.openDialog(message);
+                this.openDialog(message);
                 // window.location.href = '/registro';
                 // Ejemplo: Manejar errores de validación o mostrar un mensaje al usuario
                 break;
