@@ -1,16 +1,28 @@
-<div
-  class="flex bg-slate-100 text-black overflow-y-scroll w-screen h-screen antialiased  selection:bg-blue-600 selection:text-white"
->
-  <div class="flex relative w-screen">
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar>
+    <button mat-icon-button (click)="snav.toggle()"><mat-icon class="text-white">menu</mat-icon></button>
+    <h1 class="example-app-name text-white">CDIAR</h1>
+    <span class="example-spacer"></span>
+    <span class="text-white">
+      <p class="text-sm">Nombre usuario</p>
+      <p class="text-xs">Rol</p>
+    </span>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <img class="w-8 h-8 rounded-full" src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg" alt="user photo">
+    </button>
+  </mat-toolbar>
 
-    <sidebar></sidebar>
+  <mat-sidenav-container class="example-sidenav-container"
+                        [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-nav-list>
+        <sidebar></sidebar>
+      </mat-nav-list>
+    </mat-sidenav>
 
-    <div class="text-black px-2 mt-10 w-full">
+    <mat-sidenav-content>
       <router-outlet></router-outlet>
-    </div>
-
-
-
-
-  </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>
