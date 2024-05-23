@@ -8,6 +8,7 @@ import { HelperHttpService } from '../../shared/services/helper.http.service';
 import { Role } from '../interfaces/role';
 import { HttpInterceptorService } from '../../shared/services/http.interceptor.service';
 import { Email } from '../interfaces/email';
+import { ForgotPassword } from '../interfaces/forgot-password';
 
 @Injectable({
   providedIn: 'root',
@@ -83,5 +84,17 @@ export class AuthService {
 
   resendVerificationMail(email: Email) {
     return this.http.post<Email>('usuario/resendverificationmail', email);
+  }
+
+  forgotPassword(email: Email) {
+    return this.http.post<Email>('login/forgotpassword', email);
+  }
+
+  resendChangePasswordEmail(email: Email) {
+    return this.http.post<Email>('login/resendverificationcode', email);
+  }
+
+  resetpassword(email: ForgotPassword) {
+    return this.http.post<ForgotPassword>('login/resetpassword', email);
   }
 }

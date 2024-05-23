@@ -15,15 +15,23 @@ export class HelperHttpService {
     return this.http.get<JsonResponse<T>>(`${this.baseUrl}${url}`, config);
   }
 
-  post<T>(url: string, data: any) {
-    return this.http.post<JsonResponse<T>>(`${this.baseUrl}${url}`, data);
+  post<T>(url: string, data: any, config?: { headers: HttpHeaders }) {
+    return this.http.post<JsonResponse<T>>(
+      `${this.baseUrl}${url}`,
+      data,
+      config
+    );
   }
 
-  put<T>(url: string, data: any) {
-    return this.http.put<JsonResponse<T>>(`${this.baseUrl}${url}`, data);
+  put<T>(url: string, data: any, config?: { headers: HttpHeaders }) {
+    return this.http.put<JsonResponse<T>>(
+      `${this.baseUrl}${url}`,
+      data,
+      config
+    );
   }
 
-  delete<T>(url: string) {
-    return this.http.delete<JsonResponse<T>>(`${this.baseUrl}${url}`);
+  delete<T>(url: string, config?: { headers: HttpHeaders }) {
+    return this.http.delete<JsonResponse<T>>(`${this.baseUrl}${url}`, config);
   }
 }
