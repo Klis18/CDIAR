@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormControl } from '@angular/forms';
 import { Login } from '../../interfaces/login';
+import { JsonResponse } from '../../../shared/interfaces/json-response';
 // import Swal from 'sweetalert2'
 
 @Component({
@@ -21,8 +22,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -34,7 +35,6 @@ export class LoginComponent implements OnInit {
 
   // constructor(private router: Router) {}
 
-
   get loginSend(): Login {
     return this.loginForm.value as Login;
   }
@@ -45,11 +45,15 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.authService.login(this.loginSend).subscribe({
-      next: () => {
-        this.router.navigateByUrl('/home');
-      },
+    this.authService.login(this.loginSend).subscribe((res: any) => {
+      res.map((data: JsonResponse<number>) => {
+        if (data.statusCode === 400) {
+          window.alert(data.message);
+          this.router.navigate(['/auth/login']);
+        } else {
+          this.router.navigate(['/home']);
+        }
+      });
     });
-
   }
 }
