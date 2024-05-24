@@ -31,7 +31,6 @@ export class HomeLayoutComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.homeService.obtenerDatosMenu().subscribe((user) => {
-      console.log(user);
       this.userName = user.data.userName;
       this.rol = user.data.rol;
     });

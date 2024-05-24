@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeLayoutComponent } from './home-layout/home-layout.component';
 import { HomeComponent } from './pages/home/home.component';
+import { AcademicResourcesComponent } from './pages/academic-resources/academic-resources.component';
 
 const routes: Routes = [
   {
@@ -9,6 +10,7 @@ const routes: Routes = [
     component: HomeLayoutComponent,
     children:[
       {path:'landing', component: HomeComponent},
+      {path:'resources', component: AcademicResourcesComponent},
       {path:'**', redirectTo:'landing'}
     ]
   }

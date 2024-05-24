@@ -13,6 +13,7 @@ import localeEsEC from '@angular/common/locales/es-EC';
 import { registerLocaleData } from '@angular/common';
 import { HttpInterceptorService } from './shared/services/http.interceptor.service';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { AcademicResourcesModule } from './academic-resources/academic-resources.module';
 
 registerLocaleData(localeEsEC);
 
@@ -23,6 +24,7 @@ registerLocaleData(localeEsEC);
     BrowserAnimationsModule,
     AppRoutingModule,
     AuthModule,
+    AcademicResourcesModule,
     SharedModule,
     HttpClientModule,
   ],

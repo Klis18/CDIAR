@@ -23,3 +23,18 @@
 .example-spacer {
     flex: 1 1 auto;
 }
+
+#wrapper{
+    padding-bottom: 81px;
+    min-height: 100vh;
+    position: relative;
+}
+ 
+shared-footer{
+    color: white;
+    background-color: #1A1A1A;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}

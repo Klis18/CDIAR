@@ -28,7 +28,7 @@ export class SidebarComponent {
     {
       icon: 'collections_bookmark',
       name: 'Recursos Académicos',
-      route: '/productos',
+      route: '/home/resources',
       expanded: false,
       subOptions: [],
     },
