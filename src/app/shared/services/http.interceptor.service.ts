@@ -30,7 +30,7 @@ export class HttpInterceptorService implements HttpInterceptor {
         status: statusResponse,
         mensaje: message,
       },
-      width: '50vh',
+      width: '30%',
     });
   }
 
