@@ -9,6 +9,8 @@ import { HomeService } from '../../services/home.service';
 export class AcademicResourcesComponent implements OnInit {
 
   rol:string = '';
+  selectedTab = 'Publicado'; 
+
   private homeService = inject(HomeService);
 
   constructor() { }

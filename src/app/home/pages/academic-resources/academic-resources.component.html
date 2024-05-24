@@ -29,19 +29,32 @@
         </span>
       </button>
     </div>
-    
-    <div class="text-sm font-medium text-center text-gray-700 border-b border-gray-200">
-      <ul class="flex flex-wrap -mb-px">
-          <li class="me-2">
-              <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300">Publicados</a>
-          </li>
-          <li class="me-2">
-              <a href="#" class="inline-block p-4 text-blue-900 border-b-2 border-blue-900 rounded-t-lg active" aria-current="page">Mis Recursos</a>
-          </li>
-          <li *ngIf="rol == 'Docente'" class="me-2">
-              <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300">Por Aprobar</a>
-          </li>
-      </ul>
+    <div class="mt-2 mb-2">
+      <resources-filters></resources-filters>
+    </div>
+
+  <div class="text-sm font-medium text-center text-gray-700 border-b border-gray-200">
+    <ul class="flex flex-wrap -mb-px">
+      <li class="me-2">
+        <span (click)="selectedTab = 'Publicado'" 
+              [ngClass]="{'text-blue-900 active border-b-2 border-blue-900': selectedTab === 'Publicado', 'hover:text-gray-600 hover:border-gray-300': selectedTab !== 'Publicado'}" 
+              class="inline-block p-4 rounded-t-lg">Publicados</span>
+      </li>
+      <li class="me-2">
+        <span (click)="selectedTab = 'Mis Recursos'"  
+           [ngClass]="{'text-blue-900 border-b-2 border-blue-900': selectedTab === 'Mis Recursos', 'hover:text-gray-600 hover:border-gray-300': selectedTab !== 'Mis Recursos'}" 
+           class="inline-block p-4 rounded-t-lg">Mis Recursos</span>
+      </li>
+      <li *ngIf="rol == 'Docente'" class="me-2">
+        <span (click)="selectedTab = 'Por Aprobar'"  
+           [ngClass]="{'text-blue-900 border-b-2 border-blue-900': selectedTab === 'Por Aprobar', 'hover:text-gray-600 hover:border-gray-300': selectedTab !== 'Por Aprobar'}" 
+           class="inline-block p-4 rounded-t-lg">Por Aprobar</span>
+      </li>
+    </ul>
+  </div>
+  
+  <div *ngIf="selectedTab == 'Publicado'" class="bg-gray-200 pt-5 pb-5">
+    <resources-table></resources-table>
   </div>
 
   </div>

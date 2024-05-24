@@ -1,10 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormControl } from '@angular/forms';
 import { Login } from '../../interfaces/login';
-import { HttpInterceptorService } from '../../../shared/services/http.interceptor.service';
 // import Swal from 'sweetalert2'
 
 @Component({
@@ -22,11 +21,11 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) { }
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required,Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
   }
@@ -34,6 +33,7 @@ export class LoginComponent implements OnInit {
   // value: number | undefined;
 
   // constructor(private router: Router) {}
+
 
   get loginSend(): Login {
     return this.loginForm.value as Login;
@@ -44,11 +44,12 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    
+
     this.authService.login(this.loginSend).subscribe({
       next: () => {
         this.router.navigateByUrl('/home');
       },
     });
+
   }
 }

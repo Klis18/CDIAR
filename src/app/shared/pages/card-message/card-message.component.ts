@@ -9,4 +9,6 @@ import { HttpInterceptorService } from '../../services/http.interceptor.service'
 })
 export class CardMessageComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: HttpInterceptorService) {}
+
+  imagen = this.data.status; 
 }
