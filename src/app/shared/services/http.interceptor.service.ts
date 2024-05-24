@@ -20,11 +20,11 @@ import { CardMessageComponent } from '../pages/card-message/card-message.compone
   providedIn: 'root',
 })
 export class HttpInterceptorService implements HttpInterceptor {
-  status:string = '';
+  status: string = '';
   mensaje: string = '';
   constructor(public dialog: MatDialog) {}
 
-  openDialog(statusResponse:string,message: string) {
+  openDialog(statusResponse: string, message: string) {
     this.dialog.open(CardMessageComponent, {
       data: {
         status: statusResponse,
@@ -54,13 +54,13 @@ export class HttpInterceptorService implements HttpInterceptor {
             switch (statusCode) {
               case 200:
                 if (message != null) {
-                  this.openDialog('ok',message);
+                  this.openDialog('ok', message);
                 }
                 break;
               case 400:
                 // Código de estado 400 (Bad Request)
                 // window.alert(message);
-                this.openDialog('error',message);
+                this.openDialog('error', message);
                 // window.location.href = '/registro';
                 // Ejemplo: Manejar errores de validación o mostrar un mensaje al usuario
                 break;
