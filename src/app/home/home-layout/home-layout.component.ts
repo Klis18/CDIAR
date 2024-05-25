@@ -8,6 +8,8 @@ import {
 import { MediaMatcher } from '@angular/cdk/layout';
 import { HomeService } from '../services/home.service';
 import { Home } from '../interfaces/home';
+import { Router } from '@angular/router';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-home-layout',
@@ -16,7 +18,8 @@ import { Home } from '../interfaces/home';
 })
 export class HomeLayoutComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
-
+  private authService = inject(AuthService);
+  private router = inject(Router);
   userName: string = '';
   rol: string = '';
 
@@ -38,5 +41,10 @@ export class HomeLayoutComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/auth/login']);
   }
 }

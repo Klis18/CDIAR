@@ -8,14 +8,14 @@ import { Router } from '@angular/router';
   styles: ``,
 })
 export class SidebarComponent {
-  private authService = inject(AuthService);
-  private router = inject(Router);
+  // private authService = inject(AuthService);
+  // private router = inject(Router);
 
-  public isDropdownVisible = false;
+  // public isDropdownVisible = false;
 
-  toggleDropdown() {
-    this.isDropdownVisible = !this.isDropdownVisible;
-  }
+  // toggleDropdown() {
+  //   this.isDropdownVisible = !this.isDropdownVisible;
+  // }
 
   menuOptions = [
     {
@@ -66,8 +66,4 @@ export class SidebarComponent {
     option.expanded = !option.expanded;
   }
 
-  onClick() {
-    this.authService.logout();
-    this.router.navigate(['/auth/login']);
-  }
 }

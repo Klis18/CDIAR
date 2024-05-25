@@ -45,15 +45,12 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.authService.login(this.loginSend).subscribe((res: any) => {
-      res.map((data: JsonResponse<number>) => {
-        if (data.statusCode === 400) {
-          window.alert(data.message);
-          this.router.navigate(['/auth/login']);
-        } else {
-          this.router.navigate(['/home']);
-        }
-      });
-    });
-  }
+  this.authService.login(this.loginSend).subscribe((res: boolean) => {
+    if (res) {
+      this.router.navigate(['/home']);
+    } else {
+      this.router.navigate(['/auth/login']);
+    }
+  });
+}
 }

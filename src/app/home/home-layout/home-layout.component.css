@@ -38,3 +38,7 @@ shared-footer{
     bottom: 0;
     left: 0;
 }
+
+mat-sidenav{
+    background-color:#172554;
+}
