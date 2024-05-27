@@ -1,6 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HomeService } from '../../services/home.service';
+import { PersonalData } from '../../interfaces/personalData';
 
 @Component({
   selector: 'app-profile',
@@ -8,12 +9,13 @@ import { HomeService } from '../../services/home.service';
   styles: [],
 })
 export class ProfileComponent implements OnInit {
-  private homeService = inject(HomeService);
-
   profileForm!: FormGroup;
 
   userName: string = '';
   rolName: string = '';
+  photoBase64: string | null = null;
+
+  constructor(private homeService: HomeService) {}
 
   ngOnInit() {
     this.profileForm = new FormGroup({
@@ -52,25 +54,40 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.photoBase64 = (reader.result as string).split(',')[1];
+        console.log('Photo Base64:', this.photoBase64); // Depuración
+      };
+    }
+  }
+
   onSubmit() {
     if (this.profileForm.invalid) return;
 
-    const formData = new FormData();
-    const formValue = this.profileForm.value;
-    const userName = (formValue.nombres + formValue.apellidos).replace(
-      /\s/g,
-      ''
+    const userData: PersonalData = {
+      ...this.profileForm.value,
+      username: (
+        this.profileForm.value.nombres + this.profileForm.value.apellidos
+      ).replace(/\s/g, ''),
+      foto: this.photoBase64,
+    };
+
+    console.log('User Data:', userData); // Depuración
+
+    this.homeService.actualizarDatosUsuario(userData).subscribe(
+      (response) => {
+        // manejar la respuesta exitosa
+        console.log('Response:', response);
+      },
+      (error) => {
+        // manejar el error
+        console.error('Error:', error);
+      }
     );
-
-    formData.append('cedula', formValue.cedula);
-    formData.append('nombres', formValue.nombres);
-    formData.append('apellidos', formValue.apellidos);
-    formData.append('email', formValue.email);
-    formData.append('phoneNumber', formValue.phoneNumber);
-    formData.append('username', userName);
-
-    this.homeService.actualizarDatosUsuario(formData).subscribe((response) => {
-      // Manejar la respuesta del servidor aquí, si es necesario
-    });
   }
 }

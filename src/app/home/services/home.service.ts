@@ -31,7 +31,7 @@ export class HomeService {
     });
   }
 
-  actualizarDatosUsuario(data: FormData) {
+  actualizarDatosUsuario(data: PersonalData) {
     return this.http.put<PersonalData>('usuario/actualizar', data, {
       headers: this.headers,
     });
