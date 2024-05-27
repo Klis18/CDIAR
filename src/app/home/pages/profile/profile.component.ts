@@ -1,48 +1,40 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CustomValidators } from '../../../../custom/custom-validators';
-import { User } from '../../../auth/interfaces';
 import { HomeService } from '../../services/home.service';
-import { encryptStorage } from '../../../shared/utils/storage';
-import { PersonalData } from '../../interfaces/personalData';
-
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styles: ``
+  styles: [],
 })
-export class ProfileComponent implements OnInit{
-
+export class ProfileComponent implements OnInit {
   private homeService = inject(HomeService);
-  
-  value: string | undefined;
-  isDisabled: boolean = true;
 
-  userTypes: { label: string; value: string }[] = [];
+  profileForm!: FormGroup;
 
   userName: string = '';
-  cedula: string = '';
-  nombres: string = '';
-  apellidos: string = '';
-  email: string = '';
-  phoneNumber: string = '';
-  password: string = '';
-  passwordConfirm: string = '';
-  rolId: string = '';
   rolName: string = '';
 
-  public userGroup = new FormGroup(
-    {
-      cedula: new FormControl<string>('', Validators.required),
-      nombres: new FormControl<string>('', Validators.required),
-      apellidos: new FormControl<string>('', Validators.required),
-      email: new FormControl<string>('', Validators.required),
-      phoneNumber: new FormControl<string>('', Validators.required),
-    }
-  );
-
   ngOnInit() {
+    this.profileForm = new FormGroup({
+      cedula: new FormControl('', [
+        Validators.required,
+        Validators.pattern('.{10}$'),
+      ]),
+      nombres: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z\\s]*$'),
+      ]),
+      apellidos: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z\\s]*$'),
+      ]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      phoneNumber: new FormControl('', [
+        Validators.required,
+        Validators.pattern('.{10}$'),
+      ]),
+    });
 
     this.homeService.obtenerDatosMenu().subscribe((user) => {
       this.userName = user.data.userName;
@@ -50,31 +42,35 @@ export class ProfileComponent implements OnInit{
     });
 
     this.homeService.obtenerDatosUsuario().subscribe((user) => {
-      this.cedula = user.data.cedula;
-      this.nombres = user.data.nombres;
-      this.apellidos = user.data.apellidos;
-      this.email = user.data.email;
-      this.phoneNumber = user.data.phoneNumber;
+      this.profileForm.setValue({
+        cedula: user.data.cedula,
+        nombres: user.data.nombres,
+        apellidos: user.data.apellidos,
+        email: user.data.email,
+        phoneNumber: user.data.phoneNumber,
+      });
     });
-  }
-
-  
-  get currentUser(): PersonalData {
-    const user = this.userGroup.value as PersonalData;
-    return user;
   }
 
   onSubmit() {
-    if (this.userGroup.invalid) return;
-    console.log(this.currentUser);
+    if (this.profileForm.invalid) return;
 
-    this.currentUser.username = (
-      this.currentUser.nombres + this.currentUser.apellidos
-    ).replace(/\s/g, '');
+    const formData = new FormData();
+    const formValue = this.profileForm.value;
+    const userName = (formValue.nombres + formValue.apellidos).replace(
+      /\s/g,
+      ''
+    );
 
-    this.homeService.actualizarDatosUsuario(this.currentUser).subscribe((user) => {
-      encryptStorage.setItem('user', this.currentUser);
+    formData.append('cedula', formValue.cedula);
+    formData.append('nombres', formValue.nombres);
+    formData.append('apellidos', formValue.apellidos);
+    formData.append('email', formValue.email);
+    formData.append('phoneNumber', formValue.phoneNumber);
+    formData.append('username', userName);
+
+    this.homeService.actualizarDatosUsuario(formData).subscribe((response) => {
+      // Manejar la respuesta del servidor aquí, si es necesario
     });
-    
   }
 }
