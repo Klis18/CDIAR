@@ -3,6 +3,8 @@ import { HelperHttpService } from '../../shared/services/helper.http.service';
 import { AuthService } from '../../auth/services/auth.service';
 import { Home } from '../interfaces/home';
 import { HttpHeaders } from '@angular/common/http';
+import { User } from '../../auth/interfaces';
+import { PersonalData } from '../interfaces/personalData';
 @Injectable({
   providedIn: 'root',
 })
@@ -19,6 +21,18 @@ export class HomeService {
 
   obtenerDatosMenu() {
     return this.http.get<Home>('persona/datos-persona-menu', {
+      headers: this.headers,
+    });
+  }
+
+  obtenerDatosUsuario() {
+    return this.http.get<User>('usuario/infousuario', {
+      headers: this.headers,
+    });
+  }
+
+  actualizarDatosUsuario(data: PersonalData) {
+    return this.http.put<PersonalData>('usuario/actualizar', data, {
       headers: this.headers,
     });
   }

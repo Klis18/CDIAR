@@ -8,20 +8,25 @@ import { HomeComponent } from './pages/home/home.component';
 import { MaterialModule } from '../material/material.module';
 import { AcademicResourcesModule } from '../academic-resources/academic-resources.module';
 import { AcademicResourcesComponent } from './pages/academic-resources/academic-resources.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     HomeLayoutComponent,
     HomeComponent,
-    AcademicResourcesComponent
+    AcademicResourcesComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
     SharedModule,
     MaterialModule,
-    AcademicResourcesModule
+    AcademicResourcesModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class HomeModule { }
