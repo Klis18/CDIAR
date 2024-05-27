@@ -1,31 +1,45 @@
-<div class="grid grid-flow-col auto-cols-max justify-center px-6 py-5 lg:px-8">
-  <div></div>
-  <div class="card bg-white rounded-lg mt-5 mb-5">
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm mt-10">
-      <h2 class="mt-5 text-left text-2xl sm:text-2xl md:text-3xl font-bold leading-9 tracking-tight text-gray-900">
-        Mi Perfil
-      </h2>
-    </div>
-    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm mr-3 ml-3">
-      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-        <div class="border-b border-gray-900/10 pb-5">
-          <div class="mt-5 grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-6">
-            <div class="sm:col-span-3">
+<!--Modificación de Perfil-->
+<div class="m-7">
+  <div class="mt-5 mb-7">
+    <span class="text-3xl">Mi Perfil</span>
+  </div>
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="grid grid-rows-3 grid-flow-col gap-4 m-7">
+      <div class="row-span-6">
+          <img class="w-40 h-40 p-1 rounded-full ring-4 ring-blue-900 dark:ring-blue-900" src="{{photoBase64}}" alt="foto-perfil">
+        <div>
+          <label for="photo" class="block text-sm font-medium leading-6 text-gray-900">Foto</label>
+            <div class="mt-2">
+              <input type="file" id="photo" (change)="onFileChange($event)" accept="image/*"
+                class="block w-full text-gray-900">
+            </div>
+        </div>
+      </div>
+      <div class="row-span-3 col-span-3">
+      <div class="border-b border-gray-900/10 pb-5">
+          <span class="text-xl">Datos Personales</span>
+          <button mat-icon-button aria-label="Example icon button with a home icon" (click)="editar()">
+            <mat-icon class="text-blue-800">edit</mat-icon>
+          </button>
+          <mat-divider></mat-divider>
+          <div class="mt-5 grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-3">
+            <div class="sm:col-span-1">
               <label for="identity" class="block text-sm font-medium leading-6 text-gray-900">Cédula</label>
               <div class="mt-2">
                 <input type="text" id="identity" formControlName="cedula"
                   class="block w-full rounded-md border-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
-                  pattern=".{10}$" />
+                  pattern=".{10}$" readonly/>
                 <span class="mt-2 hidden text-xs text-red-500"
                   *ngIf="profileForm.get('cedula')?.invalid && profileForm.get('cedula')?.touched">
                   *Cédula debe tener 10 dígitos
                 </span>
               </div>
             </div>
-            <div class="sm:col-span-3 sm:col-start-1">
+            <div class="sm:col-span-1">
               <label for="user-name" class="block text-sm font-medium leading-6 text-gray-900">Nombres</label>
               <div class="mt-2">
                 <input type="text" id="user-name" formControlName="nombres"
+                  [readonly]="isDisabled"
                   class="block w-full rounded-md border-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                   pattern="^[a-zA-Z\s]*$" />
                 <span class="mt-2 hidden text-xs text-red-500"
@@ -34,10 +48,11 @@
                 </span>
               </div>
             </div>
-            <div class="sm:col-span-3">
+            <div class="sm:col-span-1">
               <label for="user-lastname" class="block text-sm font-medium leading-6 text-gray-900">Apellidos</label>
               <div class="mt-2">
-                <input type="text" id="user-lastname" formControlName="apellidos"
+                <input type="text" id="user-lastname" formControlName="apellidos" 
+                  [readonly]="isDisabled"
                   class="block w-full rounded-md border-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                   pattern="^[a-zA-Z\s]*$" />
                 <span class="mt-2 hidden text-xs text-red-500"
@@ -46,7 +61,7 @@
                 </span>
               </div>
             </div>
-            <div class="sm:col-span-3">
+            <div class="sm:col-span-1">
               <label for="role" class="block text-sm font-medium leading-6 text-gray-900">Tipo Usuario</label>
               <div class="mt-2">
                 <input type="text" id="rol" value="{{ rolName }}"
@@ -54,10 +69,11 @@
                   readonly />
               </div>
             </div>
-            <div class="sm:col-span-4">
+            <div class="sm:col-span-1">
               <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Correo electrónico</label>
               <div class="mt-2">
                 <input id="email" type="email" formControlName="email" autocomplete="email"
+                  [readonly]="isDisabled"
                   class="block w-full rounded-md border-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                   pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}" />
                 <span class="mt-2 hidden text-xs text-red-500"
@@ -66,10 +82,11 @@
                 </span>
               </div>
             </div>
-            <div class="sm:col-span-2">
+            <div class="sm:col-span-1">
               <label for="phoneNumber" class="block text-sm font-medium leading-6 text-gray-900">Celular</label>
               <div class="mt-2">
                 <input id="phoneNumber" type="text" formControlName="phoneNumber" autocomplete="phoneNumber"
+                  [readonly]="isDisabled"
                   class="block w-full rounded-md border-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
                   pattern=".{10}$" />
                 <span class="mt-2 hidden text-xs text-red-500"
@@ -78,26 +95,53 @@
                 </span>
               </div>
             </div>
-            <div class="sm:col-span-3">
-              <label for="photo" class="block text-sm font-medium leading-6 text-gray-900">Foto</label>
-              <div class="mt-2">
-                <input type="file" id="photo" (change)="onFileChange($event)" accept="image/*"
-                  class="block w-full text-gray-900">
+            <div *ngIf="!isDisabled" class="mt-6 flex items-center justify-end gap-x-6 pb-7 sm:col-span-3">
+              <button type="button" class="text-sm font-semibold leading-6 text-gray-900" (click)="cancelar()">
+                Cancelar
+              </button>
+              <button type="submit"
+                class="rounded-md bg-blue-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                Guardar
+              </button>
+            </div>
+
+            <div class="row-span-3 col-span-3 mt-2">
+              <div class="col-span-3">
+                <span class="text-xl">Seguridad de la Cuenta</span>
+                <mat-divider></mat-divider>
+                <div class="mt-7">
+                  <span class="mr-5">Contraseña</span>
+                  <button type="submit"
+                  class="rounded-md bg-blue-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                  Cambiar contraseña
+                </button>
+                </div>
               </div>
+              <change-password></change-password>
             </div>
           </div>
-
-          <div class="mt-6 flex items-center justify-end gap-x-6 pb-7">
-            <button type="button" routerLink="/auth/login" class="text-sm font-semibold leading-6 text-gray-900">
-              Cancelar
-            </button>
-            <button type="submit"
-              class="rounded-md bg-blue-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-              Guardar
-            </button>
-          </div>
+  
+        </div>
+        </div>
         </div>
       </form>
+
+      <div class="grid grid-rows-3 grid-flow-col gap-4 m-7">
+        <div class="row-span-3">
+
+        </div>
+        <!-- <div class="row-span-3 col-span-3">
+          <span class="text-xl">Seguridad de la Cuenta</span>
+          <mat-divider></mat-divider>
+          <div>
+            <span>Cambiar contraseña</span>
+            <button type="submit"
+            class="rounded-md bg-blue-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            Cambiar contraseña
+          </button>
+          </div>
+        </div> -->
+      </div>
     </div>
-  </div>
-</div>
+
+

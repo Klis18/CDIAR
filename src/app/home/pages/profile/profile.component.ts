@@ -10,7 +10,8 @@ import { PersonalData } from '../../interfaces/personalData';
 })
 export class ProfileComponent implements OnInit {
   profileForm!: FormGroup;
-
+  changePasswordForm!: FormGroup;
+  isDisabled: boolean = true;
   userName: string = '';
   rolName: string = '';
   photoBase64: string | null = null;
@@ -38,12 +39,16 @@ export class ProfileComponent implements OnInit {
       ]),
     });
 
+  
+
     this.homeService.obtenerDatosMenu().subscribe((user) => {
       this.userName = user.data.userName;
       this.rolName = user.data.rol;
     });
 
     this.homeService.obtenerDatosUsuario().subscribe((user) => {
+      this.photoBase64 = user.data.foto || '';
+      console.log('User:', user); // Depuración
       this.profileForm.setValue({
         cedula: user.data.cedula,
         nombres: user.data.nombres,
@@ -89,5 +94,13 @@ export class ProfileComponent implements OnInit {
         console.error('Error:', error);
       }
     );
+  }
+
+  editar(){
+    this.isDisabled = !this.isDisabled;
+  }
+
+  cancelar(){
+    this.isDisabled = true;
   }
 }

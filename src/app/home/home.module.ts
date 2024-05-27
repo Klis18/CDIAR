@@ -10,6 +10,7 @@ import { AcademicResourcesModule } from '../academic-resources/academic-resource
 import { AcademicResourcesComponent } from './pages/academic-resources/academic-resources.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HomeLayoutComponent,
     HomeComponent,
     AcademicResourcesComponent,
-    ProfileComponent
+    ProfileComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,

@@ -8,6 +8,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 
@@ -20,6 +21,7 @@ import {MatMenuModule} from '@angular/material/menu';
     MatDialogModule,
     MatButtonModule,
     MatCardModule,
+    MatDividerModule,
     MatIconModule,
     MatSidenavModule,
     MatToolbarModule,

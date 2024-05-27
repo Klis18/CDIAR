@@ -5,6 +5,7 @@ import { Home } from '../interfaces/home';
 import { HttpHeaders } from '@angular/common/http';
 import { User } from '../../auth/interfaces';
 import { PersonalData } from '../interfaces/personalData';
+import { changePassword } from '../../auth/interfaces/change-password';
 @Injectable({
   providedIn: 'root',
 })
@@ -33,6 +34,12 @@ export class HomeService {
 
   actualizarDatosUsuario(data: PersonalData) {
     return this.http.put<PersonalData>('usuario/actualizar', data, {
+      headers: this.headers,
+    });
+  }
+
+  cambiarContrasena(data: changePassword) {
+    return this.http.post('login/changepassword', data, {
       headers: this.headers,
     });
   }
