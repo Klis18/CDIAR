@@ -14,6 +14,7 @@ export class ProfileComponent implements OnInit {
   isDisabled: boolean = true;
   userName: string = '';
   rolName: string = '';
+  profilePhoto: string = '';
   photoBase64: string | null = null;
 
   constructor(private homeService: HomeService) {}
@@ -39,15 +40,14 @@ export class ProfileComponent implements OnInit {
       ]),
     });
 
-  
-
     this.homeService.obtenerDatosMenu().subscribe((user) => {
       this.userName = user.data.userName;
       this.rolName = user.data.rol;
+      this.profilePhoto = user.data.foto;
     });
 
     this.homeService.obtenerDatosUsuario().subscribe((user) => {
-      this.photoBase64 = user.data.foto || '';
+      this.profilePhoto = user.data.foto || '';
       console.log('User:', user); // Depuración
       this.profileForm.setValue({
         cedula: user.data.cedula,
@@ -66,7 +66,6 @@ export class ProfileComponent implements OnInit {
       reader.readAsDataURL(file);
       reader.onload = () => {
         this.photoBase64 = (reader.result as string).split(',')[1];
-        console.log('Photo Base64:', this.photoBase64); // Depuración
       };
     }
   }
@@ -74,12 +73,16 @@ export class ProfileComponent implements OnInit {
   onSubmit() {
     if (this.profileForm.invalid) return;
 
+    if (this.photoBase64 === null) {
+      this.photoBase64 = '';
+    }
+
     const userData: PersonalData = {
       ...this.profileForm.value,
       username: (
         this.profileForm.value.nombres + this.profileForm.value.apellidos
       ).replace(/\s/g, ''),
-      foto: this.photoBase64 || null,
+      foto: this.photoBase64,
     };
 
     console.log('User Data:', userData); // Depuración
@@ -96,11 +99,11 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  editar(){
+  editar() {
     this.isDisabled = !this.isDisabled;
   }
 
-  cancelar(){
+  cancelar() {
     this.isDisabled = true;
   }
 }
