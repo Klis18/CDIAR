@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PersonalData } from '../../interfaces/personalData';
 import { changePassword } from '../../../auth/interfaces/change-password';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HomeService } from '../../services/home.service';
@@ -43,7 +42,11 @@ export class ChangePasswordComponent implements OnInit{
       }
     )
   }
+  edit(){
+    this.isDisabled = !this.isDisabled;
+  }
   cancelar(){
     this.isDisabled = true;
   }
+
 }

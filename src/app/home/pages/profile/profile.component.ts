@@ -79,7 +79,7 @@ export class ProfileComponent implements OnInit {
       username: (
         this.profileForm.value.nombres + this.profileForm.value.apellidos
       ).replace(/\s/g, ''),
-      foto: this.photoBase64,
+      foto: this.photoBase64 || null,
     };
 
     console.log('User Data:', userData); // Depuración
