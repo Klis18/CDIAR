@@ -10,7 +10,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import localeEsEC from '@angular/common/locales/es-EC';
 
-import { registerLocaleData } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@angular/common';
 import { HttpInterceptorService } from './shared/services/http.interceptor.service';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AcademicResourcesModule } from './academic-resources/academic-resources.module';
@@ -37,6 +37,8 @@ registerLocaleData(localeEsEC);
     {
       provide: LOCALE_ID,
       useValue: 'es-EC',
+    },{
+      provide: LocationStrategy, useClass: HashLocationStrategy 
     },
     provideAnimationsAsync(),
   ],

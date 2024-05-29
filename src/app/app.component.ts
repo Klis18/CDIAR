@@ -10,36 +10,4 @@ import { AuthService } from './auth/services/auth.service';
 })
 export class AppComponent {
   title = 'proyecto-cdiar';
-
-  private authService = inject( AuthService );
-  private router = inject( Router );
-
-  public finishedAuthCheck = computed<boolean>( () => {
-    console.log(this.authService.authStatus() )
-    if ( this.authService.authStatus() === AuthStatus.checking ) {
-      return false;
-    }
-
-    return true;
-  });
-
-
-  public authStatusChangedEffect = effect(() => {
-
-    switch( this.authService.authStatus() ) {
-
-      case AuthStatus.checking:
-        return;
-
-      case AuthStatus.authenticated:
-        this.router.navigateByUrl('/dashboard');
-        return;
-
-      case AuthStatus.notAuthenticated:
-        this.router.navigateByUrl('/auth/login');
-        return;
-
-    }
-
-  });
 }

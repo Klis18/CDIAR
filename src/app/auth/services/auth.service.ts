@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { Observable, map, catchError, throwError, of } from 'rxjs';
+import { Observable, map, catchError, throwError, of, tap } from 'rxjs';
 import { User, AuthStatus, LoginResponse } from '../interfaces';
 import { EmailVerification } from '../interfaces/email-verification';
 import { Login } from '../interfaces/login';
@@ -18,6 +18,7 @@ export class AuthService {
 
   private _currentUser = signal<User | null>(null);
   private _authStatus = signal<AuthStatus>(AuthStatus.checking);
+
 
   //! Al mundo exterior
   public currentUser = computed(() => this._currentUser());
@@ -97,4 +98,5 @@ export class AuthService {
   resetpassword(email: ForgotPassword) {
     return this.http.post<ForgotPassword>('login/resetpassword', email);
   }
+
 }
