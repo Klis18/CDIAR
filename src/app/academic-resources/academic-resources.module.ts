@@ -4,22 +4,15 @@ import { ResourceFiltersComponent } from './components/resource-filters/resource
 import { MaterialModule } from '../material/material.module';
 import { ResourcesTableComponent } from './components/resources-table/resources-table.component';
 import { AddResourceComponent } from './components/add-resource/add-resource.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-  
     ResourceFiltersComponent,
-        ResourcesTableComponent,
-        AddResourceComponent
+    ResourcesTableComponent,
+    AddResourceComponent,
   ],
-  imports: [
-    CommonModule,
-    MaterialModule
-  ],
-  exports: [
-    ResourceFiltersComponent,
-    ResourcesTableComponent
-  ]
+  imports: [CommonModule, MaterialModule, ReactiveFormsModule],
+  exports: [ResourceFiltersComponent, ResourcesTableComponent],
 })
-export class AcademicResourcesModule { }
+export class AcademicResourcesModule {}
