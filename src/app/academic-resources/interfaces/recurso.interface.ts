@@ -3,9 +3,9 @@ export interface Recurso {
   idAsignatura: number;
   tipoRecurso: string;
   nombreRecurso: string;
-  link?: string;
-  recurso?: string;
-  estado?: string;
+  link: string | null;
+  recurso: string | null;
+  extension: string;
 }
 
 export interface ListaRecurso {
