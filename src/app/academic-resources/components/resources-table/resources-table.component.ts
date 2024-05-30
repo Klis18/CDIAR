@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { ListaRecurso } from '../../interfaces/recurso.interface';
 import { RecursoService } from '../services/recurso.service';
+import { HomeService } from '../../../home/services/home.service';
 
 @Component({
   selector: 'resources-table',
@@ -9,12 +10,22 @@ import { RecursoService } from '../services/recurso.service';
 })
 export class ResourcesTableComponent implements OnInit {
 
+  usuario: string = '';
+  
+
+  private homeService = inject(HomeService);
+
   @Input() filterByUser: string = '';
   
   constructor(private recursoService: RecursoService) {}
 
   ngOnInit(): void {
     this.listaRecursos();
+
+    this.homeService.obtenerDatosMenu().subscribe((user) => {
+      console.log(user);
+      this.usuario = user.data.userName;
+    });
   }
 
   data: ListaRecurso[] = [];
@@ -48,6 +59,32 @@ export class ResourcesTableComponent implements OnInit {
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
+    }
+  }
+
+  getStyleColor(tipoRecurso: string){
+    switch (tipoRecurso) {
+        case 'Documento':
+            return 'bg-cyan-700';
+        case 'Link':
+            return 'bg-orange-600';
+        case 'Imagen':
+            return 'bg-pink-700';
+        default:
+          return '';
+    }
+  }
+
+  getIcon(tipoRecurso: string){
+    switch (tipoRecurso) {
+        case 'Documento':
+            return 'file';
+        case 'Enlace':
+            return 'insert_drive_file';
+        case 'Imagen':
+            return 'image';
+        default:
+          return '';
     }
   }
 }

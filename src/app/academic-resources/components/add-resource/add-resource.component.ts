@@ -85,6 +85,12 @@ export class AddResourceComponent implements OnInit {
     return this.recursoGroupForm.value as Recurso;
   }
 
+  isLink(){
+    return this.recursoGroupForm.value.tipoRecurso === 'Link';
+  }
+  isFile(){
+    return this.recursoGroupForm.value.tipoRecurso === 'Archivo';
+  }
   onSubmit() {
     if (this.recursoGroupForm.invalid)
       return console.log(this.recursoGroupForm.value);
