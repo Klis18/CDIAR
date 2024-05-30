@@ -27,10 +27,12 @@
           <tbody class="bg-white divide-y divide-gray-200">
             <tr *ngFor="let item of paginatedData">
               <td class="px-6 py-4 whitespace-nowrap">
-                <mat-icon class="text-red-600 mr-2" *ngIf="item.usuarioCreacion == usuario"
+                <mat-icon class="text-red-600 mr-2"
+                  *ngIf="item.usuarioCreacion == usuario && selectedTab === 'Mis Recursos'"
                   (click)="eliminarRecurso(item.idRecurso)">delete</mat-icon>
-                <mat-icon class="text-blue-800 mr-2" *ngIf="item.usuarioCreacion == usuario">edit</mat-icon>
-                <mat-icon class="text-blue-800" *ngIf="item.usuarioCreacion == usuario">visibility</mat-icon>
+                <mat-icon class="text-blue-800 mr-2"
+                  *ngIf="item.usuarioCreacion == usuario && selectedTab === 'Mis Recursos'">edit</mat-icon>
+                <mat-icon class="text-blue-800">visibility</mat-icon>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">{{ item.idRecurso }}</td>
 
