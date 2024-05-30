@@ -1,10 +1,10 @@
 import { Injectable, inject } from '@angular/core';
-import { HelperHttpService } from '../../../shared/services/helper.http.service';
 import { HttpHeaders } from '@angular/common/http';
+import { HelperHttpService } from '../../../shared/services/helper.http.service';
 import { Nivel } from '../../interfaces/nivel.inteface';
 import { Asignatura } from '../../interfaces/asignatura.inteface';
 import { Estado } from '../../interfaces/estados.interface';
-import { Recurso } from '../../interfaces/recurso.interface';
+import { ListaRecurso, Recurso } from '../../interfaces/recurso.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -41,4 +41,9 @@ export class RecursoService {
     });
   }
 
+  getRecursos() {
+    return this.http.get<ListaRecurso>('recursos/listarecursos', {
+      headers: this.headers,
+    });
+  }
 }

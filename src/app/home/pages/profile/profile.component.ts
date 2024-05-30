@@ -74,7 +74,7 @@ export class ProfileComponent implements OnInit {
     if (this.profileForm.invalid) return;
 
     if (this.photoBase64 === null) {
-      this.photoBase64 = '';
+      this.photoBase64 = null;
     }
 
     const userData: PersonalData = {

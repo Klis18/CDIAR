@@ -7,18 +7,17 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
   selector: 'app-academic-resources',
   templateUrl: './academic-resources.component.html',
   styles: `
-  `
+  `,
 })
 export class AcademicResourcesComponent implements OnInit {
-
-  rol:string = '';
-  selectedTab = 'Publicado'; 
+  rol: string = '';
+  selectedTab = 'Publicado';
 
   private homeService = inject(HomeService);
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.homeService.obtenerDatosMenu().subscribe((user) => {
       this.rol = user.data.rol;
     });
@@ -33,15 +32,11 @@ export class AcademicResourcesComponent implements OnInit {
   // }
 
   openDialog() {
-    this.dialog.open(AddResourceComponent,
-      {
-        width: '40%',
-        maxHeight: '80%',
-      }
-    );
+    this.dialog.open(AddResourceComponent, {
+      width: '40%',
+      maxHeight: '80%',
+    });
   }
-  
-
 
   // addResource(): void {
   //   const dialogRef: MatDialogRef<AddResourceComponent> = this.dialog.open(
@@ -53,11 +48,11 @@ export class AcademicResourcesComponent implements OnInit {
   //   );
   //   dialogRef.afterClosed().subscribe((result) => {
   //     if (result === '201') {
-       
+
   //       console.log('Registro guardado correctamente.')
   //     } else {
   //       console.log('Error')
-        
+
   //     }
   //   });
   // }
