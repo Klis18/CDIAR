@@ -16,4 +16,5 @@ export interface ListaRecurso {
   fechaCreacion: Date;
   tipoRecurso: string;
   usuarioCreacion: string;
+  estadoRecurso: string;
 }
