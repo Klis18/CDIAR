@@ -25,20 +25,20 @@
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
             <tr *ngFor="let item of paginatedData">
-              <td class="px-6 py-4 whitespace-nowrap" *ngIf="selectedTab === 'Mis Recursos'">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  Editar
-                </button>
-                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                  (click)="eliminarRecurso(item.idRecurso)">
-                  Eliminar
-                </button>
+              <td class="px-6 py-4 whitespace-nowrap" >
+                <mat-icon class="text-red-600 mr-2" *ngIf="item.usuarioCreacion == usuario">delete</mat-icon>
+                <mat-icon class="text-blue-800 mr-2" *ngIf="item.usuarioCreacion == usuario">edit</mat-icon>
+                <mat-icon class="text-blue-800" *ngIf="item.usuarioCreacion == usuario">visibility</mat-icon>
               </td>
+              <td class="px-6 py-4 whitespace-nowrap">{{ item.idRecurso }}</td>
+
               <td class="px-6 py-4 whitespace-nowrap">{{ item.nombreRecurso }}</td>
               <td class="px-6 py-4 whitespace-nowrap">{{ item.asignatura }}</td>
               <td class="px-6 py-4 whitespace-nowrap">{{ item.nivel }}</td>
               <td class="px-6 py-4 whitespace-nowrap">{{ item.fechaCreacion | date }}</td>
-              <td class="px-6 py-4 whitespace-nowrap">{{ item.tipoRecurso }}</td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                {{item.tipoRecurso}}
+              </td>
               <td class="px-6 py-4 whitespace-nowrap">{{ item.usuarioCreacion }}</td>
             </tr>
           </tbody>

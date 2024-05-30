@@ -5,14 +5,12 @@ import { MaterialModule } from '../material/material.module';
 import { ResourcesTableComponent } from './components/resources-table/resources-table.component';
 import { AddResourceComponent } from './components/add-resource/add-resource.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ResourcesFormComponent } from './components/resources-form/resources-form.component';
 
 @NgModule({
   declarations: [
     ResourceFiltersComponent,
     ResourcesTableComponent,
     AddResourceComponent,
-    ResourcesFormComponent,
   ],
   imports: [CommonModule, MaterialModule, ReactiveFormsModule],
   exports: [ResourceFiltersComponent, ResourcesTableComponent],
