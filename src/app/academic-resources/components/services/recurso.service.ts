@@ -46,4 +46,10 @@ export class RecursoService {
       headers: this.headers,
     });
   }
+
+  eliminarRecurso(idRecurso: number) {
+    return this.http.delete(`recursos/eliminar/${idRecurso}`, {
+      headers: this.headers,
+    });
+  }
 }

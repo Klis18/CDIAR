@@ -10,7 +10,6 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
   `,
 })
 export class AcademicResourcesComponent implements OnInit {
-
   usuario: string = '';
   rol: string = '';
   selectedTab = 'Publicado';
@@ -33,5 +32,4 @@ export class AcademicResourcesComponent implements OnInit {
       maxHeight: '80%',
     });
   }
-
 }
