@@ -13,22 +13,24 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
   `,
 })
-export class AddResourceComponent implements OnInit{
+export class AddResourceComponent implements OnInit {
   nivelesType: { label: string; value: string }[] = [];
   asignaturas: { label: string; value: string }[] = [];
   estados: { label: string; value: string }[] = [];
   recursoFile: string | null = null;
+  extension: string = '';
 
-  constructor(private recursoService: RecursoService, public dialogRef: MatDialogRef<AddResourceComponent>) {}
+  constructor(
+    private recursoService: RecursoService,
+    public dialogRef: MatDialogRef<AddResourceComponent>
+  ) {}
 
   public recursoGroupForm = new FormGroup({
     idNivel: new FormControl(0, Validators.required),
     idAsignatura: new FormControl(0, Validators.required),
     tipoRecurso: new FormControl<string>('', Validators.required),
-    link: new FormControl<string>('', Validators.required),
+    link: new FormControl<string>(''),
     nombreRecurso: new FormControl<string>('', Validators.required),
-    //recurso: new FormControl('', Validators.required),
-    //estado: new FormControl<string>('', Validators.required),
   });
 
   ngOnInit() {
@@ -43,6 +45,7 @@ export class AddResourceComponent implements OnInit{
       reader.readAsDataURL(file);
       reader.onload = () => {
         this.recursoFile = (reader.result as string).split(',')[1];
+        this.extension = file.name.split('.').pop() || '';
       };
     }
   }
@@ -65,7 +68,6 @@ export class AddResourceComponent implements OnInit{
     });
   }
 
-
   onNivelChange(event: Event) {
     const selectedNivel = (event.target as HTMLSelectElement).value;
     this.recursoService
@@ -80,19 +82,26 @@ export class AddResourceComponent implements OnInit{
   }
 
   getCurrenResource(): Recurso {
-   return this.recursoGroupForm.value as Recurso;
+    return this.recursoGroupForm.value as Recurso;
   }
 
   onSubmit() {
-    if (this.recursoGroupForm.invalid) return;
+    if (this.recursoGroupForm.invalid)
+      return console.log(this.recursoGroupForm.value);
     if (this.recursoFile === null) {
-      this.recursoFile = '';
+      this.recursoFile = null;
     }
+
     const recursosForm = this.getCurrenResource();
+
+    if (recursosForm.link === '') {
+      recursosForm.link = null;
+    }
 
     const resource: Recurso = {
       ...recursosForm,
       recurso: this.recursoFile,
+      extension: this.extension,
     };
 
     this.recursoService.addRecurso(resource).subscribe((res) => {
@@ -100,11 +109,11 @@ export class AddResourceComponent implements OnInit{
     });
   }
 
-  cancelar(){
+  cancelar() {
     this.dialogRef.close();
   }
 
-  pruebabtn(){
+  pruebabtn() {
     console.log(this.recursoGroupForm.value);
   }
 }
