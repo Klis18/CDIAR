@@ -17,18 +17,18 @@ export class AddResourceComponent implements OnInit{
   nivelesType: { label: string; value: string }[] = [];
   asignaturas: { label: string; value: string }[] = [];
   estados: { label: string; value: string }[] = [];
-  recursoFile: string = '';
+  recursoFile: string | null = null;
 
-  constructor(private recursoService: RecursoService) {}
+  constructor(private recursoService: RecursoService, public dialogRef: MatDialogRef<AddResourceComponent>) {}
 
   public recursoGroupForm = new FormGroup({
-    nivel: new FormControl(0, Validators.required),
-    asignatura: new FormControl(0, Validators.required),
+    idNivel: new FormControl(0, Validators.required),
+    idAsignatura: new FormControl(0, Validators.required),
     tipoRecurso: new FormControl<string>('', Validators.required),
-    nombreRecurso: new FormControl<string>('', Validators.required),
-    recurso: new FormControl('', Validators.required),
     link: new FormControl<string>('', Validators.required),
-    estado: new FormControl<string>('', Validators.required),
+    nombreRecurso: new FormControl<string>('', Validators.required),
+    //recurso: new FormControl('', Validators.required),
+    //estado: new FormControl<string>('', Validators.required),
   });
 
   ngOnInit() {
@@ -71,6 +71,7 @@ export class AddResourceComponent implements OnInit{
     this.recursoService
       .getAsignaturasPorNivel(selectedNivel)
       .subscribe((res: any) => {
+        console.log(res.data);
         this.asignaturas = res.data.map((asignatura: any) => ({
           label: asignatura.nombre,
           value: asignatura.idAsignatura,
@@ -79,15 +80,31 @@ export class AddResourceComponent implements OnInit{
   }
 
   getCurrenResource(): Recurso {
-    return this.recursoGroupForm.value as Recurso;
+   return this.recursoGroupForm.value as Recurso;
   }
 
   onSubmit() {
     if (this.recursoGroupForm.invalid) return;
+    if (this.recursoFile === null) {
+      this.recursoFile = '';
+    }
+    const recursosForm = this.getCurrenResource();
 
-    const recurso = this.getCurrenResource();
+    const resource: Recurso = {
+      ...recursosForm,
+      recurso: this.recursoFile,
+    };
 
-    this.recursoService.addRecurso(recurso).subscribe((res) => {});
+    this.recursoService.addRecurso(resource).subscribe((res) => {
+      console.log('recurso agregado');
+    });
   }
 
+  cancelar(){
+    this.dialogRef.close();
+  }
+
+  pruebabtn(){
+    console.log(this.recursoGroupForm.value);
+  }
 }
