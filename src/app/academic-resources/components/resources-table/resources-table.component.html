@@ -5,10 +5,12 @@
         <table class="min-w-full divide-y divide-gray-200">
           <thead>
             <tr>
-              <th *ngIf="selectedTab ==='Mis Recursos'"
+              <th
                 class=" px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Acciones
+                <p *ngIf="selectedTab ==='Mis Recursos'">Acciones</p>
               </th>
+              <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Id Recurso</th>
               <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Nombre Recurso</th>
               <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -26,7 +28,7 @@
           <tbody class="bg-white divide-y divide-gray-200">
             <tr *ngFor="let item of paginatedData">
               <td class="px-6 py-4 whitespace-nowrap" >
-                <mat-icon class="text-red-600 mr-2" *ngIf="item.usuarioCreacion == usuario">delete</mat-icon>
+                <mat-icon class="text-red-600 mr-2" *ngIf="item.usuarioCreacion == usuario" (click)="eliminarRecurso(item.idRecurso)">delete</mat-icon>
                 <mat-icon class="text-blue-800 mr-2" *ngIf="item.usuarioCreacion == usuario">edit</mat-icon>
                 <mat-icon class="text-blue-800" *ngIf="item.usuarioCreacion == usuario">visibility</mat-icon>
               </td>

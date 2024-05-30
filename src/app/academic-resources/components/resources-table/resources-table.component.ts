@@ -4,6 +4,7 @@ import { RecursoService } from '../services/recurso.service';
 import { HomeService } from '../../../home/services/home.service';
 import { AcademicResourcesComponent } from '../../../home/pages/academic-resources/academic-resources.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { CardConfirmComponent } from '../../../shared/pages/card-confirm/card-confirm.component';
 
 @Component({
   selector: 'resources-table',
@@ -11,6 +12,17 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
   styles: ``,
 })
 export class ResourcesTableComponent implements OnInit {
+
+  mensaje: string = '';
+
+  openDialog(message: string) {
+    return this.dialog.open(CardConfirmComponent, {
+      data: {
+        mensaje: message,
+      },
+      width: '30%',
+    });
+  }
 
   usuario: string = '';
   
@@ -60,13 +72,23 @@ export class ResourcesTableComponent implements OnInit {
   }
 
   eliminarRecurso(idRecurso: number) {
-    window.confirm('¿Estás seguro de eliminar este recurso?');
-    if (!window.confirm) {
-      return;
-    }
-    this.recursoService.eliminarRecurso(idRecurso).subscribe(() => {
-      this.listaRecursos();
+    const dialogRef = this.openDialog('¿Estás seguro de eliminar este recurso?');
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        console.log('Eliminando recurso',res);
+        this.recursoService.eliminarRecurso(idRecurso).subscribe(() => {
+          console.log('Recurso eliminado');
+          this.listaRecursos();
+        });
+      }
     });
+   // window.confirm('¿Estás seguro de eliminar este recurso?');
+    // if (!window.confirm) {
+    //   return;
+    // }
+    // this.recursoService.eliminarRecurso(idRecurso).subscribe(() => {
+    //   this.listaRecursos();
+    // });
   }
 
   prevPage() {
