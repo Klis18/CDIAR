@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { FormControl } from '@angular/forms';
 import { Login } from '../../interfaces/login';
 import { JsonResponse } from '../../../shared/interfaces/json-response';
+import { CustomValidators } from '../../../../custom/custom-validators';
 // import Swal from 'sweetalert2'
 
 @Component({
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, CustomValidators.atLeastOneLowercase, CustomValidators.atLeastOneUppercase, CustomValidators.atLeastOneNumber, Validators.minLength(10)]],
     });
   }
 

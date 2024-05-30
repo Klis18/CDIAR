@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Recurso } from '../../interfaces/recurso.interface';
 import { Dialog } from '@angular/cdk/dialog';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ResourcesTableComponent } from '../resources-table/resources-table.component';
 
 @Component({
   selector: 'app-add-resource',
@@ -22,7 +23,7 @@ export class AddResourceComponent implements OnInit {
 
   constructor(
     private recursoService: RecursoService,
-    public dialogRef: MatDialogRef<AddResourceComponent>
+    public dialogRef: MatDialogRef<AddResourceComponent>,
   ) {}
 
   public recursoGroupForm = new FormGroup({

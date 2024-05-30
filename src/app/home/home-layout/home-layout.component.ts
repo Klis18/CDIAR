@@ -25,6 +25,7 @@ export class HomeLayoutComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   userName: string = '';
   rol: string = '';
+  foto: string = '';
 
   private _mobileQueryListener: () => void;
   private homeService = inject(HomeService);
@@ -36,10 +37,19 @@ export class HomeLayoutComponent implements OnInit, OnDestroy {
   
   }
 
+  getFoto(){
+    if(this.foto == null){
+      return "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg";
+    }else{
+      return this.foto;
+    }
+  }
+
   ngOnInit() {
     this.homeService.obtenerDatosMenu().subscribe((user) => {
       this.userName = user.data.userName;
       this.rol = user.data.rol;
+      this.foto = user.data.foto;
     });
 
     setInterval(() => {

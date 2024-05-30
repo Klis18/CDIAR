@@ -31,9 +31,22 @@
               formControlName="password"
               class="block w-full rounded-md border-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer peer-invalid"
               pattern=".{8,}$" />
-            <span class="mt-2 hidden text-xs text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
-              *Contraseña debe tener al menos 8 caracteres
-            </span>
+              <!-- <input id="password" name="password" type="password" autocomplete="current-password"
+              formControlName="password"
+              class="block w-full rounded-md border-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2 "
+              /> -->
+            <p class="mt-2 hidden text-xs text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+              *Contraseña debe tener al menos 10 caracteres
+            </p>
+            <p *ngIf="loginForm.controls['password'].getError('atLeastOneLowercase')" class="mt-2 text-xs text-red-500">
+              *Contraseña debe tener al menos una letra minúscula
+            </p>
+            <p *ngIf="loginForm.controls['password'].getError('atLeastOneUppercase')" class="mt-2 text-xs text-red-500">
+              *Contraseña debe tener al menos una letra mayúscula
+            </p>
+            <p *ngIf="loginForm.controls['password'].getError('toNumber')" class="mt-2 text-xs text-red-500">
+              *Contraseña debe tener al menos un número
+            </p>
           </div>
           <div class="text-sm text-right">
             <a href="#" class="font-semibold text-blue-900 hover:text-blue-800" routerLink="/auth/recovery">Olvidé mi
