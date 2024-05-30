@@ -82,13 +82,6 @@ export class ResourcesTableComponent implements OnInit {
         });
       }
     });
-   // window.confirm('¿Estás seguro de eliminar este recurso?');
-    // if (!window.confirm) {
-    //   return;
-    // }
-    // this.recursoService.eliminarRecurso(idRecurso).subscribe(() => {
-    //   this.listaRecursos();
-    // });
   }
 
   prevPage() {
@@ -109,7 +102,7 @@ export class ResourcesTableComponent implements OnInit {
             return 'bg-cyan-700';
         case 'Link':
             return 'bg-orange-600';
-        case 'Imagen':
+        case 'Archivo':
             return 'bg-pink-700';
         default:
           return '';
@@ -118,9 +111,9 @@ export class ResourcesTableComponent implements OnInit {
 
   getIcon(tipoRecurso: string){
     switch (tipoRecurso) {
-        case 'Documento':
-            return 'file';
-        case 'Enlace':
+        case 'Archivo':
+            return 'insert_drive_file';
+        case 'Link':
             return 'insert_drive_file';
         case 'Imagen':
             return 'image';

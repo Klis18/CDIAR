@@ -39,7 +39,15 @@
               <td class="px-6 py-4 whitespace-nowrap">{{ item.nivel }}</td>
               <td class="px-6 py-4 whitespace-nowrap">{{ item.fechaCreacion | date }}</td>
               <td class="px-6 py-4 whitespace-nowrap">
-                {{item.tipoRecurso}}
+                
+                <div class="flex justify-center items-center m-1 font-medium py-1 px-2 pt-2 pb-2 rounded-full text-white" [class]="getStyleColor(item.tipoRecurso)">
+                  <!-- <div slot="icon">
+                      <mat-icon class="text-sm">{{getIcon(item.tipoRecurso)}}</mat-icon>
+                  </div> -->
+                  <div class="text-xs font-normal leading-none max-w-full flex-initial">
+                    {{item.tipoRecurso}}
+                  </div>
+              </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">{{ item.usuarioCreacion }}</td>
             </tr>
