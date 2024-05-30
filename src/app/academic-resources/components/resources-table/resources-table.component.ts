@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ListaRecurso } from '../../interfaces/recurso.interface';
 import { RecursoService } from '../services/recurso.service';
 
@@ -8,7 +8,11 @@ import { RecursoService } from '../services/recurso.service';
   styles: ``,
 })
 export class ResourcesTableComponent implements OnInit {
+
+  @Input() filterByUser: string = '';
+  
   constructor(private recursoService: RecursoService) {}
+
   ngOnInit(): void {
     this.listaRecursos();
   }
@@ -24,11 +28,16 @@ export class ResourcesTableComponent implements OnInit {
     });
   }
 
+ 
   get paginatedData(): ListaRecurso[] {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
-    return this.data.slice(start, end);
+  
+    const filteredData = this.data.filter(item => this.filterByUser ? item.usuarioCreacion === this.filterByUser : true);
+  
+    return filteredData.slice(start, end);
   }
+
 
   prevPage() {
     if (this.currentPage > 1) {

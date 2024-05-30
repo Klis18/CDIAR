@@ -10,6 +10,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
   `,
 })
 export class AcademicResourcesComponent implements OnInit {
+
+  usuario: string = '';
   rol: string = '';
   selectedTab = 'Publicado';
 
@@ -19,17 +21,11 @@ export class AcademicResourcesComponent implements OnInit {
 
   ngOnInit() {
     this.homeService.obtenerDatosMenu().subscribe((user) => {
+      console.log(user);
+      this.usuario = user.data.userName;
       this.rol = user.data.rol;
     });
   }
-
-  // openDialog() {
-  //   this.dialog.open(AddResourceComponent, {
-  //     data: {
-  //     },
-  //     width: '40%',
-  //   });
-  // }
 
   openDialog() {
     this.dialog.open(AddResourceComponent, {
@@ -38,22 +34,4 @@ export class AcademicResourcesComponent implements OnInit {
     });
   }
 
-  // addResource(): void {
-  //   const dialogRef: MatDialogRef<AddResourceComponent> = this.dialog.open(
-  //     AddResourceComponent,
-  //     {
-  //       width: '800px',
-  //       maxHeight: '700px',
-  //     },
-  //   );
-  //   dialogRef.afterClosed().subscribe((result) => {
-  //     if (result === '201') {
-
-  //       console.log('Registro guardado correctamente.')
-  //     } else {
-  //       console.log('Error')
-
-  //     }
-  //   });
-  // }
 }

@@ -58,8 +58,11 @@
     </ul>
   </div>
 
-  <div *ngIf="selectedTab == 'Publicado'" class="bg-gray-200 pt-5 pb-5">
+  <div *ngIf="selectedTab == 'Publicado'" class=" pt-5 pb-5">
     <resources-table></resources-table>
   </div>
 
+  <div *ngIf="selectedTab == 'Mis Recursos'" class="pt-5 pb-5">
+    <resources-table [filterByUser]="usuario"></resources-table>
+  </div>
 </div>

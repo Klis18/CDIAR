@@ -104,7 +104,5 @@ export class AddResourceComponent implements OnInit{
     this.dialogRef.close();
   }
 
-  pruebabtn(){
-    console.log(this.recursoGroupForm.value);
-  }
+  
 }
