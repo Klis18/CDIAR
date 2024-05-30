@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { RecursoService } from '../services/recurso.service';
 import { Nivel } from '../../interfaces/nivel.inteface';
-import { FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Recurso } from '../../interfaces/recurso.interface';
 import { Dialog } from '@angular/cdk/dialog';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -13,24 +13,38 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
   `,
 })
-export class AddResourceComponent implements OnInit {
+export class AddResourceComponent implements OnInit{
   nivelesType: { label: string; value: string }[] = [];
   asignaturas: { label: string; value: string }[] = [];
   estados: { label: string; value: string }[] = [];
+  recursoFile: string = '';
 
   constructor(private recursoService: RecursoService) {}
 
-  public recursoGroup = new FormGroup({
-    nivel: new FormGroup({}, Validators.required),
-    asignatura: new FormGroup({}, Validators.required),
-    tipoRecurso: new FormGroup<string>('', Validators.required),
-    nombreRecurso: new FormGroup<string>('', Validators.required),
-    recurso: new FormGroup<string>('', Validators.required),
+  public recursoGroupForm = new FormGroup({
+    nivel: new FormControl(0, Validators.required),
+    asignatura: new FormControl(0, Validators.required),
+    tipoRecurso: new FormControl<string>('', Validators.required),
+    nombreRecurso: new FormControl<string>('', Validators.required),
+    recurso: new FormControl('', Validators.required),
+    link: new FormControl<string>('', Validators.required),
+    estado: new FormControl<string>('', Validators.required),
   });
 
   ngOnInit() {
     this.loadNiveles();
     this.loadEstados();
+  }
+
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.recursoFile = (reader.result as string).split(',')[1];
+      };
+    }
   }
 
   loadNiveles() {
@@ -51,6 +65,7 @@ export class AddResourceComponent implements OnInit {
     });
   }
 
+
   onNivelChange(event: Event) {
     const selectedNivel = (event.target as HTMLSelectElement).value;
     this.recursoService
@@ -64,14 +79,15 @@ export class AddResourceComponent implements OnInit {
   }
 
   getCurrenResource(): Recurso {
-    return this.recursoGroup.value as Recurso;
+    return this.recursoGroupForm.value as Recurso;
   }
 
   onSubmit() {
-    if (this.recursoGroup.invalid) return;
+    if (this.recursoGroupForm.invalid) return;
 
     const recurso = this.getCurrenResource();
 
     this.recursoService.addRecurso(recurso).subscribe((res) => {});
   }
+
 }

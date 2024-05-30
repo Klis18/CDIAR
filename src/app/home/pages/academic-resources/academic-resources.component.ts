@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { HomeService } from '../../services/home.service';
 import { AddResourceComponent } from '../../../academic-resources/components/add-resource/add-resource.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-academic-resources',
@@ -24,13 +24,41 @@ export class AcademicResourcesComponent implements OnInit {
     });
   }
 
+  // openDialog() {
+  //   this.dialog.open(AddResourceComponent, {
+  //     data: {
+  //     },
+  //     width: '40%',
+  //   });
+  // }
+
   openDialog() {
-    this.dialog.open(AddResourceComponent, {
-      data: {
-
-      },
-      width: '40%',
-    });
+    this.dialog.open(AddResourceComponent,
+      {
+        width: '40%',
+        maxHeight: '80%',
+      }
+    );
   }
+  
 
+
+  // addResource(): void {
+  //   const dialogRef: MatDialogRef<AddResourceComponent> = this.dialog.open(
+  //     AddResourceComponent,
+  //     {
+  //       width: '800px',
+  //       maxHeight: '700px',
+  //     },
+  //   );
+  //   dialogRef.afterClosed().subscribe((result) => {
+  //     if (result === '201') {
+       
+  //       console.log('Registro guardado correctamente.')
+  //     } else {
+  //       console.log('Error')
+        
+  //     }
+  //   });
+  // }
 }

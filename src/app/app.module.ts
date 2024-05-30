@@ -14,6 +14,7 @@ import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@ang
 import { HttpInterceptorService } from './shared/services/http.interceptor.service';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AcademicResourcesModule } from './academic-resources/academic-resources.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 registerLocaleData(localeEsEC);
 
@@ -27,6 +28,7 @@ registerLocaleData(localeEsEC);
     AcademicResourcesModule,
     SharedModule,
     HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     {

@@ -5,4 +5,5 @@ export interface Recurso {
   nombreRecurso: string;
   link?: string;
   recurso?: string;
+  estado?: string;
 }

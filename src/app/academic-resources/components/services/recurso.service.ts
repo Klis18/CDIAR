@@ -36,8 +36,9 @@ export class RecursoService {
   }
 
   addRecurso(recurso: Recurso) {
-    return this.http.post<Recurso>('recursos/crear"', recurso, {
+    return this.http.post<Recurso>('recursos/crear', recurso, {
       headers: this.headers,
     });
   }
+
 }

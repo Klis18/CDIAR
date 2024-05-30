@@ -1,0 +1,87 @@
+<p class="text-2xl text-black">Agregar Recurso</p>
+<hr>
+<form [formGroup]="recursoGroupForm" >
+    <div class="grid grid-cols-4 gap-4 mt-5 -mb-7">
+        <div>
+            <select id="niveles" formControlName="nivel" 
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                (change)="onNivelChange($event)">
+                <option *ngFor="let nivel of nivelesType" [value]="nivel.value">
+                    {{ nivel.label }}
+                </option>
+            </select>
+        </div>
+
+        <div class="col-span-2">
+            <select id="asignaturas" formControlName="asignatura" 
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                <option *ngFor="let asignatura of asignaturas" [value]="asignatura.value">
+                    {{ asignatura.label }}
+                </option>
+            </select>
+        </div>
+
+        <div>
+            <select id="estado" 
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                <option *ngFor="let estado of estados" value="{{estado.value}}">
+                    {{ estado.label }}
+                </option>
+            </select>
+        </div>
+
+        <div class="col-span-4">
+            <input type="text" id="nombreRecurso" formControlName="nombreRecurso"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder="Descripción">
+        </div>
+
+        <div class="col-span-4">
+            <select id="tipoRecurso" formControlName="tipoRecurso"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                <option selected>Tipo Recurso</option>
+                <option value="Link">Link</option>
+                <option value="Archivo">Documento/Imagen</option>
+            </select>
+        </div>
+
+        <div class="col-span-4">
+            <input type="text" id="link" formControlName="link"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder="Link">
+        </div>
+
+        <div class="flex items-center justify-center w-full col-span-4">
+            <label for="dropzone-file"
+                class="flex flex-col items-center justify-center w-full h-50 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                    <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 20 16">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                    </svg>
+                    <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span> or drag
+                        and
+                        drop</p>
+                    <p class="text-xs text-gray-500">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                </div>
+                <input id="dropzone-file" type="file" class="hidden" formControlName="recurso"/>
+            </label>
+        </div>
+
+        <div class="col-span-4 text-right">
+            <button type="button"
+                class="text-white bg-gray-500 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2">
+                <span class="flex items-center justify-center">
+                    Cancelar
+                </span>
+            </button>
+            <button type="submit"
+                class="text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2">
+                <span class="flex items-center justify-center">
+                    Guardar
+                </span>
+            </button>
+        </div>
+   </div>
+</form> 
