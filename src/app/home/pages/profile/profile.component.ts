@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit {
   rolName: string = '';
   profilePhoto: string = '';
   photoBase64: string | null = null;
+  previewPhoto: any = null;
 
   constructor(private homeService: HomeService) {}
 
@@ -65,6 +66,7 @@ export class ProfileComponent implements OnInit {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
+        this.previewPhoto = reader.result;
         this.photoBase64 = (reader.result as string).split(',')[1];
       };
     }
@@ -91,6 +93,7 @@ export class ProfileComponent implements OnInit {
       (response) => {
         // manejar la respuesta exitosa
         console.log('Response:', response);
+        this.isDisabled = true;
       },
       (error) => {
         // manejar el error
