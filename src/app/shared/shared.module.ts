@@ -7,6 +7,9 @@ import { CardMessageComponent } from './pages/card-message/card-message.componen
 import { MaterialModule } from '../material/material.module';
 import { SidebarComponent } from './pages/sidebar/sidebar.component';
 import { CardConfirmComponent } from './pages/card-confirm/card-confirm.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { InputComponent } from './components/input.components';
+import { SelectComponent } from './components/select.components';
 
 
 @NgModule({
@@ -14,16 +17,21 @@ import { CardConfirmComponent } from './pages/card-confirm/card-confirm.componen
     FooterComponent,
     CardMessageComponent,
     SidebarComponent,
-    CardConfirmComponent
+    CardConfirmComponent,
+    InputComponent,
+    SelectComponent,
   ],
   imports: [
     CommonModule,
     SharedRoutingModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ],
   exports: [
     FooterComponent,
-    SidebarComponent
+    SidebarComponent,
+    InputComponent,
+    SelectComponent,
   ]
 })
 export class SharedModule { }

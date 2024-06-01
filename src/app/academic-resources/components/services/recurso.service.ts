@@ -4,7 +4,7 @@ import { HelperHttpService } from '../../../shared/services/helper.http.service'
 import { Nivel } from '../../interfaces/nivel.inteface';
 import { Asignatura } from '../../interfaces/asignatura.inteface';
 import { Estado } from '../../interfaces/estados.interface';
-import { ListaRecurso, Recurso } from '../../interfaces/recurso.interface';
+import { ListaRecurso, Recurso, RecursoResponse } from '../../interfaces/recurso.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -47,6 +47,16 @@ export class RecursoService {
     });
   }
 
+  getRecurso(idRecurso: number) {
+    return this.http.get<RecursoResponse>(`recursos/obtener/${idRecurso}`, {
+      headers: this.headers,
+    });
+  }
+  editarRecurso(recurso: Recurso) {
+    return this.http.put<Recurso>('recursos/actualizar', recurso, {
+      headers: this.headers,
+    });
+  }
   eliminarRecurso(idRecurso: number) {
     return this.http.delete(`recursos/eliminar/${idRecurso}`, {
       headers: this.headers,

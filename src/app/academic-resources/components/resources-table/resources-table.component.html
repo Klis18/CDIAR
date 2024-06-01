@@ -31,7 +31,8 @@
                   *ngIf="item.usuarioCreacion == usuario && selectedTab === 'Mis Recursos'"
                   (click)="eliminarRecurso(item.idRecurso)">delete</mat-icon>
                 <mat-icon class="text-blue-800 mr-2"
-                  *ngIf="item.usuarioCreacion == usuario && selectedTab === 'Mis Recursos'">edit</mat-icon>
+                  *ngIf="item.usuarioCreacion == usuario && selectedTab === 'Mis Recursos'"
+                  (click)="editarRecurso(item.idRecurso)">edit</mat-icon>
                 <mat-icon class="text-blue-800">visibility</mat-icon>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">{{ item.idRecurso }}</td>

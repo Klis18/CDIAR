@@ -5,6 +5,7 @@ import { HomeService } from '../../../home/services/home.service';
 import { AcademicResourcesComponent } from '../../../home/pages/academic-resources/academic-resources.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CardConfirmComponent } from '../../../shared/pages/card-confirm/card-confirm.component';
+import { EditResourceComponent } from '../edit-resource/edit-resource.component';
 
 @Component({
   selector: 'resources-table',
@@ -12,6 +13,9 @@ import { CardConfirmComponent } from '../../../shared/pages/card-confirm/card-co
   styles: ``,
 })
 export class ResourcesTableComponent implements OnInit {
+  
+  @Input() filterByUser: string = '';
+  @Input() filterByStatus: string = '';
 
   mensaje: string = '';
 
@@ -29,7 +33,6 @@ export class ResourcesTableComponent implements OnInit {
 
   private homeService = inject(HomeService);
 
-  @Input() filterByUser: string = '';
 
   constructor(
     private recursoService: RecursoService,
@@ -59,14 +62,26 @@ export class ResourcesTableComponent implements OnInit {
     });
   }
 
+  // get paginatedData(): ListaRecurso[] {
+  //   const start = (this.currentPage - 1) * this.itemsPerPage;
+  //   const end = start + this.itemsPerPage;
+
+  //   const filteredData = this.data.filter((item) =>
+  //     this.filterByUser
+  //       ? item.usuarioCreacion === this.filterByUser
+  //       : true && item.estadoRecurso !== 'Eliminado'
+  //   );
+  //   return filteredData.slice(start, end);
+  // }
+
+  
   get paginatedData(): ListaRecurso[] {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
-
+  
     const filteredData = this.data.filter((item) =>
-      this.filterByUser
-        ? item.usuarioCreacion === this.filterByUser
-        : true && item.estadoRecurso !== 'Eliminado'
+      (this.filterByUser ? item.usuarioCreacion === this.filterByUser : true) &&
+      (this.filterByStatus ? item.estadoRecurso === this.filterByStatus : item.estadoRecurso !== 'Eliminado')
     );
     return filteredData.slice(start, end);
   }
@@ -80,6 +95,40 @@ export class ResourcesTableComponent implements OnInit {
           console.log('Recurso eliminado');
           this.listaRecursos();
         });
+      }
+    });
+  }
+
+
+  editarRecurso(idRecurso: number) {
+      this.dialog.open(EditResourceComponent, {
+        width: '40%',
+        data: idRecurso
+      });
+  }
+
+  //PRUEBA EDITAR RECURSO
+  editResource(element: any): void {
+    const dialogRef: MatDialogRef<EditResourceComponent> = this.dialog.open(
+      EditResourceComponent,
+      {
+        data: element.idRecurso,
+        width: '800px',
+        maxHeight: '750px',
+      },
+    );
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === '200') {
+        //this._snackBar.sucess('Aviso', 'Registro editado correctamente.');
+        console.log('Registro editado correctamente');
+        this.listaRecursos();
+      } else if (result === '500') {
+        // this._snackBar.danger(
+        //   'Error',
+        //   'Oops! Algo salió mal al intentar editar el registro. Por favor, inténtalo de nuevo.',
+        // );
+        console.log('Error');
       }
     });
   }

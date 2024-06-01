@@ -18,3 +18,15 @@ export interface ListaRecurso {
   usuarioCreacion: string;
   estadoRecurso: string;
 }
+
+export interface RecursoResponse {
+  idNivel: number;
+  idAsignatura: number;
+  tipoRecurso: string;
+  estadoRecurso: number;
+  nombreRecurso: string;
+  link: string | null;
+  recurso: string | null;
+  docenteRevisor: string;
+  observaciones: string;
+}
