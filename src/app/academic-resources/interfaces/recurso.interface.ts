@@ -25,8 +25,22 @@ export interface RecursoResponse {
   tipoRecurso: string;
   estadoRecurso: number;
   nombreRecurso: string;
-  link: string | null;
+  enlaceDelRecurso: string | null;
   recurso: string | null;
   docenteRevisor: string;
   observaciones: string;
+}
+
+export interface RecursoEdit {
+  idRecurso: number;
+  idNivel: number;
+  idAsignatura: number;
+  idEstado: number;
+  tipoRecurso: string;
+  enlaceDelRecurso: string;
+  nombreRecurso: string;
+  nombreRevisor: string;
+  observaciones: string;
+  recurso?: string;
+  extension?: string;
 }

@@ -2,17 +2,16 @@ import { Component, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Nivel } from '../../interfaces/nivel.inteface';
-import { Recurso } from '../../interfaces/recurso.interface';
+import { Recurso, RecursoEdit } from '../../interfaces/recurso.interface';
 import { AddResourceComponent } from '../add-resource/add-resource.component';
 import { RecursoService } from '../services/recurso.service';
 
 @Component({
   selector: 'app-edit-resource',
   templateUrl: './edit-resource.component.html',
-  styles: ``
+  styles: ``,
 })
 export class EditResourceComponent {
-
   nivelesType: { label: string; value: string }[] = [];
   asignaturas: { label: string; value: string }[] = [];
   estados: { label: string; value: string }[] = [];
@@ -32,11 +31,11 @@ export class EditResourceComponent {
 
   ngOnInit() {
     //this.loadNiveles();
-    //this.loadEstados(); 
+    //this.loadEstados();
     this.getRecurso(this.data);
     console.log(this.data);
   }
-  
+
   getRecurso(idRecurso: number) {
     this.recursoService.getRecurso(idRecurso).subscribe((res: any) => {
       console.log(res);
@@ -44,7 +43,7 @@ export class EditResourceComponent {
     });
   }
 
-  saveRecurso(){
+  saveRecurso() {
     if (this.validForm) {
       // this._snackBar.warning(
       //   'Aviso',
@@ -55,20 +54,22 @@ export class EditResourceComponent {
     }
 
     const formData = new FormData();
+
     formData.append('idRecurso', this.editaDataRecurso.idRecurso);
     formData.append('idNivel', this.editaDataRecurso.idNivel);
     formData.append('idAsignatura', this.editaDataRecurso.idAsignatura);
-    formData.append('estadoRecurso', this.editaDataRecurso.estadoRecurso);
+    formData.append('idEstado', this.editaDataRecurso.idEstado);
     formData.append('tipoRecurso', this.editaDataRecurso.tipoRecurso);
-    formData.append('link', this.editaDataRecurso.link);
+    formData.append('enlaceDelRecurso', this.editaDataRecurso.enlaceDelRecurso);
     formData.append('nombreRecurso', this.editaDataRecurso.nombreRecurso);
     formData.append('nombreRevisor', this.editaDataRecurso.nombreRevisor);
     formData.append('observaciones', this.editaDataRecurso.observaciones);
-  
-   
-    this.data = formData;
-    
-    this.recursoService.editarRecurso(this.data).subscribe((res) => {
+
+    const recurso: RecursoEdit = this.formDataToJson(formData);
+
+    recurso.idRecurso = this.data.idRecurso;
+
+    this.recursoService.editarRecurso(recurso).subscribe((res) => {
       console.log('recurso editado');
     });
   }
@@ -92,9 +93,6 @@ export class EditResourceComponent {
   //   observaciones: new FormControl<string>(''),
   // });
 
-
-  
-
   // recursoData(){
   //   this.recursoService.getRecurso(this.data).subscribe((res: any) => {
   //     console.log(res);
@@ -102,13 +100,11 @@ export class EditResourceComponent {
   //   });
   // }
 
-
   // getAnimal(idAnimal: number) {
   //   this.animalService.getAnimalById(idAnimal).subscribe((res) => {
   //     this.animalData = res.data;
   //   });
   // }
-  
 
   // onFileChange(event: any) {
   //   const file = event.target.files[0];
@@ -191,4 +187,11 @@ export class EditResourceComponent {
     this.dialogRef.close();
   }
 
+  formDataToJson(formData: FormData): any {
+    const jsonObject: any = {};
+    formData.forEach((value, key) => {
+      jsonObject[key] = value;
+    });
+    return jsonObject;
+  }
 }

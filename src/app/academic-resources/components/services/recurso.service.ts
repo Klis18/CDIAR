@@ -4,7 +4,12 @@ import { HelperHttpService } from '../../../shared/services/helper.http.service'
 import { Nivel } from '../../interfaces/nivel.inteface';
 import { Asignatura } from '../../interfaces/asignatura.inteface';
 import { Estado } from '../../interfaces/estados.interface';
-import { ListaRecurso, Recurso, RecursoResponse } from '../../interfaces/recurso.interface';
+import {
+  ListaRecurso,
+  Recurso,
+  RecursoEdit,
+  RecursoResponse,
+} from '../../interfaces/recurso.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +29,7 @@ export class RecursoService {
   }
 
   getAsignaturasPorNivel(idNivel: string) {
+    //transforma el idNivel a number
     return this.http.get<Asignatura>(`asignatura/${idNivel}`, {
       headers: this.headers,
     });
@@ -52,8 +58,8 @@ export class RecursoService {
       headers: this.headers,
     });
   }
-  editarRecurso(recurso: Recurso) {
-    return this.http.put<Recurso>('recursos/actualizar', recurso, {
+  editarRecurso(recurso: RecursoEdit) {
+    return this.http.put<RecursoEdit>('recursos/actualizar', recurso, {
       headers: this.headers,
     });
   }

@@ -1,21 +1,27 @@
-import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { RecursoService } from '../services/recurso.service';
 import { Nivel } from '../../interfaces/nivel.inteface';
 import { Recurso } from '../../interfaces/recurso.interface';
-import { AddResourceComponent } from '../add-resource/add-resource.component';
-import { RecursoService } from '../services/recurso.service';
 
 @Component({
   selector: 'app-resources-form',
   templateUrl: './resources-form.component.html',
-  styles: ``
+  styles: ``,
 })
-export class ResourcesFormComponent implements OnInit, OnChanges{
-  @Input() formData:any;
-  @Output() editedDataEmitter = new EventEmitter<any>(); // To emit edited data
+export class ResourcesFormComponent implements OnInit, OnChanges {
+  @Input() formData: any;
+  @Output() editedDataEmitter = new EventEmitter<any>();
   @Output() valueFormEmitter = new EventEmitter<boolean>();
-  
+
   recursoGroupForm!: FormGroup;
   nivelesType: { label: string; value: string }[] = [];
   asignaturas: { label: string; value: string }[] = [];
@@ -27,14 +33,14 @@ export class ResourcesFormComponent implements OnInit, OnChanges{
 
   constructor(
     private fb: FormBuilder,
-    private recursoService: RecursoService,
+    private recursoService: RecursoService
   ) {}
-  
+
   ngOnInit() {
     this.createForm();
     this.loadNiveles();
-    this.loadEstados(); 
-    this.recursoGroupForm.valueChanges.subscribe((value) => {
+    this.loadEstados();
+    this.recursoGroupForm.valueChanges.subscribe(() => {
       this.editedDataEmitter.emit(this.recursoGroupForm.value);
       this.valueFormEmitter.emit(this.recursoGroupForm.valid);
     });
@@ -42,11 +48,11 @@ export class ResourcesFormComponent implements OnInit, OnChanges{
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['formData']) {
-      this.state = true
+      this.state = true;
       this.datosRecursos = changes['formData'].currentValue;
       this.setData(this.datosRecursos);
-
-    }  }
+    }
+  }
 
   createForm() {
     this.recursoGroupForm = this.fb.group({
@@ -54,54 +60,28 @@ export class ResourcesFormComponent implements OnInit, OnChanges{
       idAsignatura: [0, Validators.required],
       estadoRecurso: [0, Validators.required],
       tipoRecurso: ['', Validators.required],
-      link: ['', Validators.required],
+      enlaceDelRecurso: ['', Validators.required],
       nombreRecurso: ['', Validators.required],
       nombreRevisor: ['', Validators.required],
       observaciones: ['', Validators.required],
     });
   }
-  setData(data:any){
-    if(data){
+
+  setData(data: any) {
+    if (data) {
+      this.recursoGroupForm.get('idRecurso')?.setValue(data.idRecurso);
       this.recursoGroupForm.get('idNivel')?.setValue(data.idNivel);
-      this.recursoGroupForm.get('idAsignatura')?.setValue(data.idAsignatura);
+      this.getAsignaturasPorNivel(data.idNivel, () => {
+        this.recursoGroupForm.get('idAsignatura')?.setValue(data.idAsignatura);
+      });
       this.recursoGroupForm.get('idEstado')?.setValue(data.idEstado);
       this.recursoGroupForm.get('tipoRecurso')?.setValue(data.tipoRecurso);
-      this.recursoGroupForm.get('link')?.setValue(data.recurso);
+      this.recursoGroupForm
+        .get('enlaceDelRecurso')
+        ?.setValue(data.enlaceDelRecurso);
       this.recursoGroupForm.get('nombreRecurso')?.setValue(data.nombreRecurso);
       this.recursoGroupForm.get('nombreRevisor')?.setValue(data.nombreRevisor);
       this.recursoGroupForm.get('observaciones')?.setValue(data.observaciones);
-    }
-  }
-  // public recursoGroupForm = new FormGroup({
-  //   idNivel: new FormControl(0, Validators.required),
-  //   idAsignatura: new FormControl(0, Validators.required),
-  //   estadoRecurso: new FormControl(0, Validators.required),
-  //   tipoRecurso: new FormControl<string>('', Validators.required),
-  //   link: new FormControl<string>(''),
-  //   nombreRecurso: new FormControl('', [Validators.required]),
-  //   nombreRevisor: new FormControl<string>('', Validators.required),
-  //   observaciones: new FormControl<string>(''),
-  // });
-
-
-  
-  
-  getRecurso(idRecurso: number) {
-    this.recursoService.getRecurso(idRecurso).subscribe((res: any) => {
-      console.log(res);
-      this.datosRecursos = res.data;
-    });
-  }
-
-  onFileChange(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.recursoFile = (reader.result as string).split(',')[1];
-        this.extension = file.name.split('.').pop() || '';
-      };
     }
   }
 
@@ -125,53 +105,40 @@ export class ResourcesFormComponent implements OnInit, OnChanges{
 
   onNivelChange(event: Event) {
     const selectedNivel = (event.target as HTMLSelectElement).value;
+    this.getAsignaturasPorNivel(selectedNivel);
+  }
+
+  getAsignaturasPorNivel(idNivel: string, callback?: () => void) {
     this.recursoService
-      .getAsignaturasPorNivel(selectedNivel)
+      .getAsignaturasPorNivel(idNivel)
       .subscribe((res: any) => {
-        console.log(res.data);
         this.asignaturas = res.data.map((asignatura: any) => ({
           label: asignatura.nombre,
           value: asignatura.idAsignatura,
         }));
+        if (callback) {
+          callback();
+        }
       });
   }
 
-  // getCurrenResource(): Recurso {
-  //   return this.recursoGroupForm.value as Recurso;
-  // }
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.recursoFile = (reader.result as string).split(',')[1];
+        this.extension = file.name.split('.').pop() || '';
+      };
+    }
+  }
 
-  isLink(){
+  isLink() {
     return this.recursoGroupForm.value.tipoRecurso === 'Link';
   }
-  isFile(){
+
+  isFile() {
     return this.recursoGroupForm.value.tipoRecurso === 'Archivo';
   }
-  // onSubmit() {
-  //   if (this.recursoGroupForm.invalid)
-  //     return console.log(this.recursoGroupForm.value);
-  //   if (this.recursoFile === null) {
-  //     this.recursoFile = null;
-  //   }
-
-  //   const recursosForm = this.getCurrenResource();
-
-  //   if (recursosForm.link === '') {
-  //     recursosForm.link = null;
-  //   }
-
-  //   const resource: Recurso = {
-  //     ...recursosForm,
-  //     recurso: this.recursoFile,
-  //     extension: this.extension,
-  //   };
-
-  //   this.recursoService.addRecurso(resource).subscribe((res) => {
-  //     console.log('recurso agregado');
-  //   });
-  // }
-
-  // cancelar() {
-  //   this.dialogRef.close();
-  // }
-
 }
