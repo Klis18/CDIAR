@@ -9,8 +9,6 @@
                 <p *ngIf="selectedTab ==='Mis Recursos'">Acciones</p>
               </th>
               <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Id Recurso</th>
-              <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Nombre Recurso</th>
               <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Asignatura</th>
@@ -31,25 +29,26 @@
                   *ngIf="item.usuarioCreacion == usuario && selectedTab === 'Mis Recursos'"
                   (click)="eliminarRecurso(item.idRecurso)">delete</mat-icon>
                 <mat-icon class="text-blue-800 mr-2"
-                  *ngIf="item.usuarioCreacion == usuario && selectedTab === 'Mis Recursos'">edit</mat-icon>
+                  *ngIf="item.usuarioCreacion == usuario && selectedTab === 'Mis Recursos'"
+                  (click)="editarRecurso(item.idRecurso)">edit</mat-icon>
                 <mat-icon class="text-blue-800">visibility</mat-icon>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap">{{ item.idRecurso }}</td>
-
               <td class="px-6 py-4 whitespace-nowrap">{{ item.nombreRecurso }}</td>
               <td class="px-6 py-4 whitespace-nowrap">{{ item.asignatura }}</td>
               <td class="px-6 py-4 whitespace-nowrap">{{ item.nivel }}</td>
               <td class="px-6 py-4 whitespace-nowrap">{{ item.fechaCreacion | date }}</td>
               <td class="px-6 py-4 whitespace-nowrap">
-                
-                <div class="flex justify-center items-center m-1 font-medium py-1 px-2 pt-2 pb-2 rounded-full text-white" [class]="getStyleColor(item.tipoRecurso)">
+
+                <div
+                  class="flex justify-center items-center m-1 font-medium py-1 px-2 pt-2 pb-2 rounded-full text-white"
+                  [class]="getStyleColor(item.tipoRecurso)">
                   <!-- <div slot="icon">
                       <mat-icon class="text-sm">{{getIcon(item.tipoRecurso)}}</mat-icon>
                   </div> -->
                   <div class="text-xs font-normal leading-none max-w-full flex-initial">
                     {{item.tipoRecurso}}
                   </div>
-              </div>
+                </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">{{ item.usuarioCreacion }}</td>
             </tr>

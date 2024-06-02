@@ -1,0 +1,83 @@
+<mat-dialog-content>
+    <div class="text-right">
+        <mat-icon mat-dialog-close class="text-gray-700">close</mat-icon>
+    </div>
+    <p class="text-2xl text-black">Editar Recurso</p>
+    <hr>
+    <form [formGroup]="recursoGroupForm">
+        <div class="grid grid-cols-4 gap-4 mt-5 -mb-7">
+            <div>
+                <label for="nivel" class="block text-sm font-medium leading-6 text-gray-900">Nivel</label>
+                <select id="niveles" formControlName="idNivel"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    (change)="onNivelChange($event)">
+                    <option value="" disabled selected>Nivel</option>
+                    <option *ngFor="let nivel of nivelesType" [value]="nivel.value">{{ nivel.label }}</option>
+                </select>
+            </div>
+
+            <div class="col-span-2">
+                <label for="asignatura" class="block text-sm font-medium leading-6 text-gray-900">Asignatura</label>
+                <select id="asignaturas" formControlName="idAsignatura"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <option value="" disabled selected>Asignatura</option>
+                    <option *ngFor="let asignatura of asignaturas" [value]="asignatura.value">{{ asignatura.label }}
+                    </option>
+                </select>
+            </div>
+
+            <div>
+                <label for="estado" class="block text-sm font-medium leading-6 text-gray-900">Estado</label>
+                <select id="estado" formControlName="idEstado"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <option value="" disabled selected>Estado</option>
+                    <option *ngFor="let estado of estados" [value]="estado.value">{{ estado.label }}</option>
+                </select>
+            </div>
+
+            <div class="col-span-4">
+                <label for="tipoRecurso" class="block text-sm font-medium leading-6 text-gray-900">Tipo Recurso</label>
+                <select id="tipoRecurso" formControlName="tipoRecurso"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <option value="" disabled selected>Tipo Recurso</option>
+                    <option value="Link">Link</option>
+                    <option value="Archivo">Documento/Imagen</option>
+                </select>
+            </div>
+
+            <div class="col-span-4" *ngIf="isLink()">
+                <label for="link" class="block text-sm font-medium leading-6 text-gray-900">Link</label>
+                <input type="text" id="link" formControlName="enlaceDelRecurso"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Link">
+            </div>
+
+            <div class="col-span-4" *ngIf="isFile()">
+                <label for="file" class="block text-sm font-medium leading-6 text-gray-900">Archivo/Imagen</label>
+                <div class="mt-2">
+                    <input type="file" id="file" (change)="onFileChange($event)"
+                        accept=".jpg, .jpeg, .png, .gif, .doc, .docx, .pdf, .xls, .xlsx, .ppt, .pptx"
+                        class="block w-full text-gray-900">
+                    <div>
+                        <span><a target="_blank"
+                                [href]="datosRecursos.recurso">{{recurseName(datosRecursos.recurso)}}</a> </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-span-4">
+                <label for="nombreRevisor" class="block text-sm font-medium leading-6 text-gray-900">Revisor</label>
+                <input type="text" id="nombreRevisor" formControlName="nombreRevisor"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Nombre del revisor">
+            </div>
+
+            <div class="col-span-4">
+                <label for="observacion" class="block text-sm font-medium leading-6 text-gray-900">Observación</label>
+                <input type="text" id="observacion" formControlName="observaciones"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Observaciones">
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>

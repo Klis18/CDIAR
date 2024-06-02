@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { RecursoService } from '../services/recurso.service';
 import { Nivel } from '../../interfaces/nivel.inteface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -15,6 +15,7 @@ import { ResourcesTableComponent } from '../resources-table/resources-table.comp
   `,
 })
 export class AddResourceComponent implements OnInit {
+
   nivelesType: { label: string; value: string }[] = [];
   asignaturas: { label: string; value: string }[] = [];
   estados: { label: string; value: string }[] = [];
@@ -23,7 +24,7 @@ export class AddResourceComponent implements OnInit {
 
   constructor(
     private recursoService: RecursoService,
-    public dialogRef: MatDialogRef<AddResourceComponent>,
+    public dialogRef: MatDialogRef<AddResourceComponent>
   ) {}
 
   public recursoGroupForm = new FormGroup({
