@@ -37,6 +37,8 @@ export class EditResourceComponent {
   }
 
   getRecurso(idRecurso: number) {
+    console.log('RECURSO ID: ', idRecurso);
+
     this.recursoService.getRecurso(idRecurso).subscribe((res: any) => {
       console.log(res);
       this.datosRecursos = res.data;
@@ -53,23 +55,21 @@ export class EditResourceComponent {
       return;
     }
 
-    const formData = new FormData();
+    console.log(this.editaDataRecurso);
 
-    formData.append('idRecurso', this.editaDataRecurso.idRecurso);
-    formData.append('idNivel', this.editaDataRecurso.idNivel);
-    formData.append('idAsignatura', this.editaDataRecurso.idAsignatura);
-    formData.append('idEstado', this.editaDataRecurso.idEstado);
-    formData.append('tipoRecurso', this.editaDataRecurso.tipoRecurso);
-    formData.append('enlaceDelRecurso', this.editaDataRecurso.enlaceDelRecurso);
-    formData.append('nombreRecurso', this.editaDataRecurso.nombreRecurso);
-    formData.append('nombreRevisor', this.editaDataRecurso.nombreRevisor);
-    formData.append('observaciones', this.editaDataRecurso.observaciones);
+    const recursosedit: RecursoEdit = {
+      idRecurso: this.editaDataRecurso.idRecurso,
+      idNivel: this.editaDataRecurso.idNivel,
+      idAsignatura: this.editaDataRecurso.idAsignatura,
+      idEstado: this.editaDataRecurso.idEstado,
+      tipoRecurso: this.editaDataRecurso.tipoRecurso,
+      enlaceDelRecurso: this.editaDataRecurso.enlaceDelRecurso,
+      nombreRecurso: this.editaDataRecurso.nombreRecurso,
+      nombreRevisor: this.editaDataRecurso.nombreRevisor,
+      observaciones: this.editaDataRecurso.observaciones,
+    };
 
-    const recurso: RecursoEdit = this.formDataToJson(formData);
-
-    recurso.idRecurso = this.data.idRecurso;
-
-    this.recursoService.editarRecurso(recurso).subscribe((res) => {
+    this.recursoService.editarRecurso(recursosedit).subscribe((res) => {
       console.log('recurso editado');
     });
   }

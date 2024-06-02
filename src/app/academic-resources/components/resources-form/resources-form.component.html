@@ -28,7 +28,7 @@
 
             <div>
                 <label for="estado" class="block text-sm font-medium leading-6 text-gray-900">Estado</label>
-                <select id="estado" formControlName="estadoRecurso"
+                <select id="estado" formControlName="idEstado"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                     <option value="" disabled selected>Estado</option>
                     <option *ngFor="let estado of estados" [value]="estado.value">{{ estado.label }}</option>
@@ -58,6 +58,10 @@
                     <input type="file" id="file" (change)="onFileChange($event)"
                         accept=".jpg, .jpeg, .png, .gif, .doc, .docx, .pdf, .xls, .xlsx, .ppt, .pptx"
                         class="block w-full text-gray-900">
+                    <div>
+                        <span><a target="_blank"
+                                [href]="datosRecursos.recurso">{{recurseName(datosRecursos.recurso)}}</a> </span>
+                    </div>
                 </div>
             </div>
 

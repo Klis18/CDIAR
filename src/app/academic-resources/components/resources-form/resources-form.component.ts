@@ -37,7 +37,8 @@ export class ResourcesFormComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit() {
-    this.createForm();
+    console.log(this.formData);
+
     this.loadNiveles();
     this.loadEstados();
     this.recursoGroupForm.valueChanges.subscribe(() => {
@@ -48,6 +49,9 @@ export class ResourcesFormComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['formData']) {
+      if (!this.recursoGroupForm) {
+        this.createForm();
+      }
       this.state = true;
       this.datosRecursos = changes['formData'].currentValue;
       this.setData(this.datosRecursos);
@@ -56,9 +60,10 @@ export class ResourcesFormComponent implements OnInit, OnChanges {
 
   createForm() {
     this.recursoGroupForm = this.fb.group({
+      idRecurso: [],
       idNivel: [0, Validators.required],
       idAsignatura: [0, Validators.required],
-      estadoRecurso: [0, Validators.required],
+      idEstado: [0, Validators.required],
       tipoRecurso: ['', Validators.required],
       enlaceDelRecurso: ['', Validators.required],
       nombreRecurso: ['', Validators.required],
@@ -68,8 +73,12 @@ export class ResourcesFormComponent implements OnInit, OnChanges {
   }
 
   setData(data: any) {
-    if (data) {
-      this.recursoGroupForm.get('idRecurso')?.setValue(data.idRecurso);
+    console.log('ddata dasdasdasd', data);
+
+    if (data && this.recursoGroupForm) {
+      console.log('hola mundo', this.recursoGroupForm.value);
+
+      this.recursoGroupForm.get('idRecurso')?.setValue(data?.idRecurso);
       this.recursoGroupForm.get('idNivel')?.setValue(data.idNivel);
       this.getAsignaturasPorNivel(data.idNivel, () => {
         this.recursoGroupForm.get('idAsignatura')?.setValue(data.idAsignatura);
@@ -82,6 +91,8 @@ export class ResourcesFormComponent implements OnInit, OnChanges {
       this.recursoGroupForm.get('nombreRecurso')?.setValue(data.nombreRecurso);
       this.recursoGroupForm.get('nombreRevisor')?.setValue(data.nombreRevisor);
       this.recursoGroupForm.get('observaciones')?.setValue(data.observaciones);
+
+      console.log(this.nameFile);
     }
   }
 
@@ -122,6 +133,7 @@ export class ResourcesFormComponent implements OnInit, OnChanges {
       });
   }
 
+  nameFile!: File;
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -140,5 +152,10 @@ export class ResourcesFormComponent implements OnInit, OnChanges {
 
   isFile() {
     return this.recursoGroupForm.value.tipoRecurso === 'Archivo';
+  }
+
+  recurseName(value: string): string {
+    const resultName = value.split('/').slice(-1)[0];
+    return resultName || '';
   }
 }

@@ -100,7 +100,7 @@
 </mat-dialog-content> -->
 
 <div class="container">
-    <div class="cardTo border-solid border-2 rounded my-3">
+    <div class="cardTo border-solid border-2 rounded my-3" *ngIf="datosRecursos">
         <app-resources-form [formData]="datosRecursos" (editedDataEmitter)="getData($event)"
             (valueFormEmitter)="getValidForm($event)"></app-resources-form>
     </div>
