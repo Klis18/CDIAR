@@ -165,12 +165,11 @@ export class ResourcesFormComponent implements OnInit, OnChanges {
       reader.onload = () => {
         this.recursoFile = (reader.result as string).split(',')[1];
         this.extension = file.name.split('.').pop() || '';
-        if (!this.listadoExtensionesImagenes.includes(this.extension)) {
+        if (
+          !this.listadoExtensionesImagenes.includes(this.extension) ||
+          !this.listadoExtensionesArchivos.includes(this.extension)
+        ) {
           //enviar mensaje error de que la extension no es permitida para imagenes
-          window.alert('La extensión del archivo no es permitida');
-          this.recursoFile = null;
-        } else if (!this.listadoExtensionesArchivos.includes(this.extension)) {
-          //enviar mensaje error de que la extension no es permitida para archivos
           window.alert('La extensión del archivo no es permitida');
           this.recursoFile = null;
         }
