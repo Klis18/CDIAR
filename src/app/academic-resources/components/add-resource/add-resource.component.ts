@@ -15,12 +15,23 @@ import { ResourcesTableComponent } from '../resources-table/resources-table.comp
   `,
 })
 export class AddResourceComponent implements OnInit {
-
   nivelesType: { label: string; value: string }[] = [];
   asignaturas: { label: string; value: string }[] = [];
   estados: { label: string; value: string }[] = [];
   recursoFile: string | null = null;
   extension: string = '';
+  listadoExtensionesImagenes = ['jpg', 'jpeg', 'png'];
+  listadoExtensionesArchivos = [
+    'docx',
+    'pdf',
+    'pptx',
+    'xlsx',
+    'txt',
+    'doc',
+    'ppt',
+    'xls',
+    'csv',
+  ];
 
   constructor(
     private recursoService: RecursoService,
@@ -48,6 +59,15 @@ export class AddResourceComponent implements OnInit {
       reader.onload = () => {
         this.recursoFile = (reader.result as string).split(',')[1];
         this.extension = file.name.split('.').pop() || '';
+        if (!this.listadoExtensionesImagenes.includes(this.extension)) {
+          //enviar mensaje error de que la extension no es permitida para imagenes
+          window.alert('La extensión del archivo no es permitida');
+          this.recursoFile = null;
+        } else if (!this.listadoExtensionesArchivos.includes(this.extension)) {
+          //enviar mensaje error de que la extension no es permitida para archivos
+          window.alert('La extensión del archivo no es permitida');
+          this.recursoFile = null;
+        }
       };
     }
   }
@@ -87,10 +107,10 @@ export class AddResourceComponent implements OnInit {
     return this.recursoGroupForm.value as Recurso;
   }
 
-  isLink(){
+  isLink() {
     return this.recursoGroupForm.value.tipoRecurso === 'Link';
   }
-  isFile(){
+  isFile() {
     return this.recursoGroupForm.value.tipoRecurso === 'Archivo';
   }
   onSubmit() {
@@ -104,6 +124,14 @@ export class AddResourceComponent implements OnInit {
 
     if (recursosForm.link === '') {
       recursosForm.link = null;
+    }
+
+    if (this.listadoExtensionesImagenes.includes(this.extension)) {
+      recursosForm.tipoRecurso = 'Imagen';
+    } else if (this.listadoExtensionesArchivos.includes(this.extension)) {
+      recursosForm.tipoRecurso = 'Archivo';
+    } else if (recursosForm.link !== null) {
+      recursosForm.tipoRecurso = 'Link';
     }
 
     const resource: Recurso = {
@@ -120,6 +148,4 @@ export class AddResourceComponent implements OnInit {
   cancelar() {
     this.dialogRef.close();
   }
-
-  
 }
