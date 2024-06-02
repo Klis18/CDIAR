@@ -54,6 +54,15 @@
                 </select>
             </div>
 
+            <div class="col-span-4" *ngIf="isFile()">
+                <select name="tipoArchivo" id="tipoArchivo" formControlName="tipoArchivo"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <option selected>Tipo Archivo</option>
+                    <option value="Documento">Documento</option>
+                    <option value="Imagen">Imagen</option>
+                </select>
+            </div>
+
             <div class="col-span-4" *ngIf="isLink()">
                 <label for="link" class="block text-sm font-medium leading-6 text-gray-900">Link</label>
                 <input type="text" id="link" formControlName="link"

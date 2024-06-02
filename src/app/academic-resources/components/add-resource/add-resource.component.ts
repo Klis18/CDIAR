@@ -44,6 +44,7 @@ export class AddResourceComponent implements OnInit {
     tipoRecurso: new FormControl<string>('', Validators.required),
     link: new FormControl<string>(''),
     nombreRecurso: new FormControl<string>('', Validators.required),
+    tipoArchivo: new FormControl<string>('', Validators.required),
   });
 
   ngOnInit() {
@@ -59,11 +60,18 @@ export class AddResourceComponent implements OnInit {
       reader.onload = () => {
         this.recursoFile = (reader.result as string).split(',')[1];
         this.extension = file.name.split('.').pop() || '';
-        if (!this.listadoExtensionesImagenes.includes(this.extension)) {
+        debugger;
+        if (
+          !this.listadoExtensionesImagenes.includes(this.extension) &&
+          this.recursoGroupForm.value.tipoArchivo === 'Imagen'
+        ) {
           //enviar mensaje error de que la extension no es permitida para imagenes
           window.alert('La extensión del archivo no es permitida');
           this.recursoFile = null;
-        } else if (!this.listadoExtensionesArchivos.includes(this.extension)) {
+        } else if (
+          !this.listadoExtensionesArchivos.includes(this.extension) &&
+          this.recursoGroupForm.value.tipoArchivo === 'Documento'
+        ) {
           //enviar mensaje error de que la extension no es permitida para archivos
           window.alert('La extensión del archivo no es permitida');
           this.recursoFile = null;
