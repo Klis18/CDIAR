@@ -26,6 +26,7 @@ export class ResourcesFormComponent implements OnInit, OnChanges {
   nivelesType: { label: string; value: string }[] = [];
   asignaturas: { label: string; value: string }[] = [];
   estados: { label: string; value: string }[] = [];
+  docentes: { label: string; value: string }[] = [];
   recursoFile: string | null = null;
   extension: string = '';
   datosRecursos!: any;
@@ -52,6 +53,7 @@ export class ResourcesFormComponent implements OnInit, OnChanges {
     this.createForm();
     this.loadNiveles();
     this.loadEstados();
+    this.loadDocentes();
 
     if (this.formData) {
       this.setData(this.formData);
@@ -78,7 +80,7 @@ export class ResourcesFormComponent implements OnInit, OnChanges {
       tipoRecurso: ['', Validators.required],
       enlaceDelRecurso: ['', Validators.required],
       nombreRecurso: ['', Validators.required],
-      nombreRevisor: ['', Validators.required],
+      idDocenteRevisor: ['', Validators.required],
       observaciones: ['', Validators.required],
     });
   }
@@ -115,6 +117,16 @@ export class ResourcesFormComponent implements OnInit, OnChanges {
       this.estados = res.data.map((estado: any) => ({
         label: estado.descripcion,
         value: estado.idEstado,
+      }));
+    });
+  }
+
+  loadDocentes() {
+    this.recursoService.getDocentes().subscribe((res: any) => {
+      console.log('docentes', res.data);
+      this.docentes = res.data.map((docente: any) => ({
+        label: docente.nombresCompletos,
+        value: docente.idDocente,
       }));
     });
   }

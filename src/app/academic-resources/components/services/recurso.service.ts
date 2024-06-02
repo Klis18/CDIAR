@@ -10,6 +10,7 @@ import {
   RecursoEdit,
   RecursoResponse,
 } from '../../interfaces/recurso.interface';
+import { Docente } from '../../interfaces/docente.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -64,6 +65,12 @@ export class RecursoService {
   }
   eliminarRecurso(idRecurso: number) {
     return this.http.delete(`recursos/eliminar/${idRecurso}`, {
+      headers: this.headers,
+    });
+  }
+
+  getDocentes() {
+    return this.http.get<Docente>('docentes', {
       headers: this.headers,
     });
   }
