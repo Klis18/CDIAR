@@ -57,6 +57,8 @@ export class EditResourceComponent {
 
     console.log(this.editaDataRecurso);
 
+    debugger;
+
     const recursosedit: RecursoEdit = {
       idRecurso: this.editaDataRecurso.idRecurso,
       idNivel: this.editaDataRecurso.idNivel,

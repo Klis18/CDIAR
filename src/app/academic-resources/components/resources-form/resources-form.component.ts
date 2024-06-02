@@ -80,7 +80,7 @@ export class ResourcesFormComponent implements OnInit, OnChanges {
 
       this.recursoGroupForm.get('idRecurso')?.setValue(data?.idRecurso);
       this.recursoGroupForm.get('idNivel')?.setValue(data.idNivel);
-      this.getAsignaturasPorNivel(data.idNivel, () => {
+      this.getAsignaturasPorNivel(Number( data.idNivel), () => {
         this.recursoGroupForm.get('idAsignatura')?.setValue(data.idAsignatura);
       });
       this.recursoGroupForm.get('idEstado')?.setValue(data.idEstado);
@@ -115,11 +115,11 @@ export class ResourcesFormComponent implements OnInit, OnChanges {
   }
 
   onNivelChange(event: Event) {
-    const selectedNivel = (event.target as HTMLSelectElement).value;
+    const selectedNivel = Number((event.target as HTMLSelectElement).value);
     this.getAsignaturasPorNivel(selectedNivel);
   }
 
-  getAsignaturasPorNivel(idNivel: string, callback?: () => void) {
+  getAsignaturasPorNivel(idNivel: number, callback?: () => void) {
     this.recursoService
       .getAsignaturasPorNivel(idNivel)
       .subscribe((res: any) => {

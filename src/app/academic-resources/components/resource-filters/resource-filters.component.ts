@@ -30,7 +30,7 @@ export class ResourceFiltersComponent implements OnInit {
   }
 
   onNivelChange(event: Event) {
-    const selectedNivel = (event.target as HTMLSelectElement).value;
+    const selectedNivel = Number((event.target as HTMLSelectElement).value);
     this.recursoService
       .getAsignaturasPorNivel(selectedNivel)
       .subscribe((res: any) => {

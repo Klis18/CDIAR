@@ -28,8 +28,7 @@ export class RecursoService {
     });
   }
 
-  getAsignaturasPorNivel(idNivel: string) {
-    //transforma el idNivel a number
+  getAsignaturasPorNivel(idNivel: number) {
     return this.http.get<Asignatura>(`asignatura/${idNivel}`, {
       headers: this.headers,
     });
