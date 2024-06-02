@@ -30,8 +30,6 @@ export class EditResourceComponent {
   ) {}
 
   ngOnInit() {
-    //this.loadNiveles();
-    //this.loadEstados();
     this.getRecurso(this.data);
     console.log(this.data);
   }
@@ -47,17 +45,9 @@ export class EditResourceComponent {
 
   saveRecurso() {
     if (this.validForm) {
-      // this._snackBar.warning(
-      //   'Aviso',
-      //   'Debe completar todos los campos para continuar.',
-      // );
       console.log('Debe completar todos los campos para continuar.');
       return;
     }
-
-    console.log(this.editaDataRecurso);
-
-    debugger;
 
     const recursosedit: RecursoEdit = {
       idRecurso: this.editaDataRecurso.idRecurso,
@@ -71,6 +61,8 @@ export class EditResourceComponent {
       observaciones: this.editaDataRecurso.observaciones,
     };
 
+    debugger;
+
     this.recursoService.editarRecurso(recursosedit).subscribe((res) => {
       console.log('recurso editado');
     });
@@ -82,118 +74,5 @@ export class EditResourceComponent {
 
   getValidForm(event: any) {
     this.validForm = event;
-  }
-
-  // public recursoGroupForm = new FormGroup({
-  //   idNivel: new FormControl(0, Validators.required),
-  //   idAsignatura: new FormControl(0, Validators.required),
-  //   estadoRecurso: new FormControl(0, Validators.required),
-  //   tipoRecurso: new FormControl<string>('', Validators.required),
-  //   link: new FormControl<string>(''),
-  //   nombreRecurso: new FormControl('', [Validators.required]),
-  //   nombreRevisor: new FormControl<string>('', Validators.required),
-  //   observaciones: new FormControl<string>(''),
-  // });
-
-  // recursoData(){
-  //   this.recursoService.getRecurso(this.data).subscribe((res: any) => {
-  //     console.log(res);
-  //     this.datosRecursos = res.data;
-  //   });
-  // }
-
-  // getAnimal(idAnimal: number) {
-  //   this.animalService.getAnimalById(idAnimal).subscribe((res) => {
-  //     this.animalData = res.data;
-  //   });
-  // }
-
-  // onFileChange(event: any) {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(file);
-  //     reader.onload = () => {
-  //       this.recursoFile = (reader.result as string).split(',')[1];
-  //       this.extension = file.name.split('.').pop() || '';
-  //     };
-  //   }
-  // }
-
-  // loadNiveles() {
-  //   this.recursoService.getNiveles().subscribe((res: any) => {
-  //     this.nivelesType = res.data.map((nivel: Nivel) => ({
-  //       label: nivel.descripcion,
-  //       value: nivel.idNivel,
-  //     }));
-  //   });
-  // }
-
-  // loadEstados() {
-  //   this.recursoService.getEstados().subscribe((res: any) => {
-  //     this.estados = res.data.map((estado: any) => ({
-  //       label: estado.descripcion,
-  //       value: estado.idEstado,
-  //     }));
-  //   });
-  // }
-
-  // onNivelChange(event: Event) {
-  //   const selectedNivel = (event.target as HTMLSelectElement).value;
-  //   this.recursoService
-  //     .getAsignaturasPorNivel(selectedNivel)
-  //     .subscribe((res: any) => {
-  //       console.log(res.data);
-  //       this.asignaturas = res.data.map((asignatura: any) => ({
-  //         label: asignatura.nombre,
-  //         value: asignatura.idAsignatura,
-  //       }));
-  //     });
-  // }
-
-  getCurrenResource(): Recurso {
-    return this.data as Recurso;
-  }
-
-  // isLink(){
-  //   return this.recursoGroupForm.value.tipoRecurso === 'Link';
-  // }
-  // isFile(){
-  //   return this.recursoGroupForm.value.tipoRecurso === 'Archivo';
-  // }
-  // onSubmit() {
-  //   if (this.recursoGroupForm.invalid)
-  //     return console.log(this.recursoGroupForm.value);
-  //   if (this.recursoFile === null) {
-  //     this.recursoFile = null;
-  //   }
-
-  //   const recursosForm = this.getCurrenResource();
-
-  //   if (recursosForm.link === '') {
-  //     recursosForm.link = null;
-  //   }
-
-  //   const resource: Recurso = {
-  //     ...recursosForm,
-  //     recurso: this.recursoFile,
-  //     extension: this.extension,
-  //   };
-
-  //   this.recursoService.addRecurso(resource).subscribe((res) => {
-  //     console.log('recurso agregado');
-  //   });
-  // }
-
-  cancelar() {
-    this.dialogRef.close();
-  }
-
-  formDataToJson(formData: FormData): any {
-    const jsonObject: any = {};
-    formData.forEach((value, key) => {
-      jsonObject[key] = value;
-    });
-    return jsonObject;
   }
 }
