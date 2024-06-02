@@ -21,6 +21,7 @@ export class ResourcesFormComponent implements OnInit, OnChanges {
   @Input() formData: any;
   @Output() editedDataEmitter = new EventEmitter<any>();
   @Output() valueFormEmitter = new EventEmitter<boolean>();
+  @Output() asignaturaEmitter = new EventEmitter<any>();
 
   recursoGroupForm!: FormGroup;
   nivelesType: { label: string; value: string }[] = [];
@@ -60,8 +61,11 @@ export class ResourcesFormComponent implements OnInit, OnChanges {
     }
 
     this.recursoGroupForm.valueChanges.subscribe(() => {
+      console.log(this.recursoGroupForm.value);
+
       this.editedDataEmitter.emit(this.recursoGroupForm.value);
       this.valueFormEmitter.emit(this.recursoGroupForm.valid);
+      this.asignaturaEmitter.emit(this.recursoGroupForm.value.idAsignatura);
     });
   }
 
@@ -141,16 +145,19 @@ export class ResourcesFormComponent implements OnInit, OnChanges {
       .getAsignaturasPorNivel(idNivel)
       .subscribe((res: any) => {
         console.log(res.data);
-        debugger;
+
         this.asignaturas = res.data.map((asignatura: any) => ({
           label: asignatura.nombre,
           value: asignatura.idAsignatura,
         }));
+
         if (callback) {
           callback();
         }
       });
     const asignaturaControl = this.recursoGroupForm.get('idAsignatura');
+    console.log(asignaturaControl);
+
     if (asignaturaControl) {
       asignaturaControl.markAsTouched();
       asignaturaControl.updateValueAndValidity();

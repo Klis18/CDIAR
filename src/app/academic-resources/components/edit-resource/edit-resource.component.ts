@@ -49,10 +49,11 @@ export class EditResourceComponent {
       return;
     }
 
+    debugger;
     const recursosedit: RecursoEdit = {
       idRecurso: this.editaDataRecurso.idRecurso,
-      idNivel: this.editaDataRecurso.idNivel,
-      idAsignatura: this.editaDataRecurso.idAsignatura,
+      idNivel: Number(this.editaDataRecurso.idNivel),
+      idAsignatura: Number(this.editaDataRecurso.idAsignatura),
       idEstado: this.editaDataRecurso.idEstado,
       tipoRecurso: this.editaDataRecurso.tipoRecurso,
       enlaceDelRecurso: this.editaDataRecurso.enlaceDelRecurso,
@@ -61,7 +62,7 @@ export class EditResourceComponent {
       observaciones: this.editaDataRecurso.observaciones,
     };
 
-    debugger;
+    console.log(recursosedit);
 
     this.recursoService.editarRecurso(recursosedit).subscribe((res) => {
       console.log('recurso editado');
@@ -74,5 +75,10 @@ export class EditResourceComponent {
 
   getValidForm(event: any) {
     this.validForm = event;
+  }
+
+  updateAsignatura(event: any) {
+    console.log('EVENTO ASIGNATURA: ', event);
+    this.asignaturas = event;
   }
 }
