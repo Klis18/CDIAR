@@ -61,12 +61,11 @@ export class AddResourceComponent implements OnInit {
         this.extension = file.name.split('.').pop() || '';
         debugger;
         if (
-          !this.listadoExtensionesImagenes.includes(this.extension) ||
+          !this.listadoExtensionesImagenes.includes(this.extension) &&
           !this.listadoExtensionesArchivos.includes(this.extension)
         ) {
           //enviar mensaje error de que la extension no es permitida para imagenes
           window.alert('La extensión del archivo no es permitida');
-          this.recursoFile = null;
         }
       };
     }
