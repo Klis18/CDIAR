@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Nivel } from '../../interfaces/nivel.inteface';
 import { RecursoService } from '../services/recurso.service';
 
@@ -11,6 +11,7 @@ export class ResourceFiltersComponent implements OnInit {
   
   nivelesType: { label: string; value: string }[] = [];
   asignaturas: { label: string; value: string }[] = [];
+
 
   constructor(private recursoService: RecursoService) {}
 

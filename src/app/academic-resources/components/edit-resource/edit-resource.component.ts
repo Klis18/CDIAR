@@ -44,10 +44,10 @@ export class EditResourceComponent {
   }
 
   saveRecurso() {
-    if (this.validForm) {
-      console.log('Debe completar todos los campos para continuar.');
-      return;
-    }
+    // if (this.validForm) {
+    //   console.log('Debe completar todos los campos para continuar.');
+    //   return;
+    // }
 
     debugger;
     const recursosedit: RecursoEdit = {
@@ -58,8 +58,8 @@ export class EditResourceComponent {
       tipoRecurso: this.editaDataRecurso.tipoRecurso,
       enlaceDelRecurso: this.editaDataRecurso.enlaceDelRecurso,
       nombreRecurso: this.editaDataRecurso.nombreRecurso,
-      nombreRevisor: this.editaDataRecurso.nombreRevisor,
-      observaciones: this.editaDataRecurso.observaciones,
+      idDocenteRevisor: this.editaDataRecurso.idDocenteRevisor,
+      observacion: this.editaDataRecurso.observacion,
     };
 
     console.log(recursosedit);

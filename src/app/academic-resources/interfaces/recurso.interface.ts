@@ -17,6 +17,9 @@ export interface ListaRecurso {
   tipoRecurso: string;
   usuarioCreacion: string;
   estadoRecurso: string;
+  docenteRevisor: string;
+  enlaceRecurso: string | null;
+  recurso: string | null;
 }
 
 export interface RecursoResponse {
@@ -28,7 +31,7 @@ export interface RecursoResponse {
   enlaceDelRecurso: string | null;
   recurso: string | null;
   docenteRevisor: string;
-  observaciones: string;
+  observacion: string;
 }
 
 export interface RecursoEdit {
@@ -39,8 +42,8 @@ export interface RecursoEdit {
   tipoRecurso: string;
   enlaceDelRecurso: string;
   nombreRecurso: string;
-  nombreRevisor: string;
-  observaciones: string;
+  idDocenteRevisor: string;
+  observacion: string;
   recurso?: string;
   extension?: string;
 }

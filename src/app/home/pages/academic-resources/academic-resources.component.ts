@@ -32,4 +32,5 @@ export class AcademicResourcesComponent implements OnInit {
       maxHeight: '80%',
     });
   }
+
 }

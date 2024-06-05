@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, inject } from '@angular/core';
 import { ListaRecurso } from '../../interfaces/recurso.interface';
 import { RecursoService } from '../services/recurso.service';
 import { HomeService } from '../../../home/services/home.service';
@@ -6,16 +6,19 @@ import { AcademicResourcesComponent } from '../../../home/pages/academic-resourc
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CardConfirmComponent } from '../../../shared/pages/card-confirm/card-confirm.component';
 import { EditResourceComponent } from '../edit-resource/edit-resource.component';
+import { ParseTreeResult } from '@angular/compiler';
 
 @Component({
   selector: 'resources-table',
   templateUrl: './resources-table.component.html',
   styles: ``,
 })
-export class ResourcesTableComponent implements OnInit {
+export class ResourcesTableComponent implements OnInit{
   
   @Input() filterByUser: string = '';
   @Input() filterByStatus: string = '';
+  @Input() filterByRevisor: string = '';
+
 
   mensaje: string = '';
 
@@ -49,6 +52,7 @@ export class ResourcesTableComponent implements OnInit {
     });
   }
 
+
   data: ListaRecurso[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 5;
@@ -81,6 +85,7 @@ export class ResourcesTableComponent implements OnInit {
   
     const filteredData = this.data.filter((item) =>
       (this.filterByUser ? item.usuarioCreacion === this.filterByUser : true) &&
+      (this.filterByRevisor ? item.docenteRevisor === this.filterByRevisor : true) &&
       (this.filterByStatus ? item.estadoRecurso === this.filterByStatus : item.estadoRecurso !== 'Eliminado')
     );
     return filteredData.slice(start, end);
@@ -147,11 +152,11 @@ export class ResourcesTableComponent implements OnInit {
 
   getStyleColor(tipoRecurso: string){
     switch (tipoRecurso) {
-        case 'Documento':
+        case 'Archivo':
             return 'bg-cyan-700';
         case 'Link':
             return 'bg-orange-600';
-        case 'Archivo':
+        case 'Imagen':
             return 'bg-pink-700';
         default:
           return '';
@@ -170,4 +175,23 @@ export class ResourcesTableComponent implements OnInit {
           return '';
     }
   }
+
+  
+
+openFileInTab(item: any): string {
+
+  let urlRecurso: string = '';
+
+  if(item.tipoRecurso === 'Link'){
+    
+    urlRecurso = item.enlaceRecurso;
+  }
+  else if(item.tipoRecurso === 'Archivo' || item.tipoRecurso === 'Imagen'){
+    urlRecurso = item.recurso;
+  }
+  return urlRecurso;
+}
+
+
+  
 }

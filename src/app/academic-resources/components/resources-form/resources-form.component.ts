@@ -84,8 +84,8 @@ export class ResourcesFormComponent implements OnInit, OnChanges {
       tipoRecurso: ['', Validators.required],
       enlaceDelRecurso: ['', Validators.required],
       nombreRecurso: ['', Validators.required],
-      idDocenteRevisor: ['', Validators.required],
-      observaciones: ['', Validators.required],
+      idDocenteRevisor: [''],
+      observacion: [''],
     });
   }
 
@@ -100,7 +100,8 @@ export class ResourcesFormComponent implements OnInit, OnChanges {
         enlaceDelRecurso: data.enlaceDelRecurso,
         nombreRecurso: data.nombreRecurso,
         nombreRevisor: data.nombreRevisor,
-        observaciones: data.observaciones,
+        observacion: data.observacion,
+        idDocenteRevisor: data.idDocenteRevisor,
       });
 
       this.getAsignaturasPorNivel(Number(data.idNivel));
