@@ -15,6 +15,8 @@ import { DocentesComponent } from './pages/docentes/docentes.component';
 import { DocenteModule } from '../docente/docente.module';
 import { SecurityComponent } from './pages/security/security.component';
 import { SecurityModule } from '../security/security.module';
+import { AprobarDocentesComponent } from './pages/aprobar-docentes/aprobar-docentes.component';
+import { AsignarRevisorComponent } from './pages/asignar-revisor/asignar-revisor.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { SecurityModule } from '../security/security.module';
     ChangePasswordComponent,
     DocentesComponent,
     SecurityComponent,
+    AprobarDocentesComponent,
+    AsignarRevisorComponent
   ],
   imports: [
     CommonModule,
