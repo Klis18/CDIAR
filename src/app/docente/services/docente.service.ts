@@ -1,11 +1,14 @@
-import { inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../auth/services/auth.service';
 import { DiasSemana } from '../interfaces/dias-semana.interface';
 import { HelperHttpService } from '../../shared/services/helper.http.service';
+import { CargaHoraria } from '../interfaces/cargaHoraria.interface';
 
+@Injectable({
+  providedIn: 'root',
+})
 export class DocenteService {
-
   private http = inject(HelperHttpService);
   private headers = new HttpHeaders().set(
     'Authorization',
@@ -18,6 +21,12 @@ export class DocenteService {
 
   getDiasSemana() {
     return this.http.get<DiasSemana>('diassemana', {
+      headers: this.headers,
+    });
+  }
+
+  createCargaHoraria(payload: { cargaHoraria: CargaHoraria[] }) {
+    return this.http.post('cargaHoraria', payload, {
       headers: this.headers,
     });
   }

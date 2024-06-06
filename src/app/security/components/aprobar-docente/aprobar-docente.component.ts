@@ -63,22 +63,15 @@ export class AprobarDocenteComponent implements OnInit {
     return docente;
   }
 
-  aprobarDocente() {
-    const docente: DocenteAprobacion = {
-      correo: this.correo,
-      aprobado: true,
-    };
+  aprobarDocente(docente: DocenteAprobacion) {
+    docente.aprobado = true;
     this.securityService.aprobarDocente(docente).subscribe((res) => {
       console.log(res);
     });
   }
 
-
-  rechazarDocente() {
-    const docente: DocenteAprobacion = {
-      correo: this.correo,
-      aprobado: false,
-    };
+  rechazarDocente(docente: DocenteAprobacion) {
+    docente.aprobado = false;
     this.securityService.aprobarDocente(docente).subscribe((res) => {
       console.log(res);
     });

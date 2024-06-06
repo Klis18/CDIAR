@@ -1,58 +1,63 @@
 import { Component, OnInit } from '@angular/core';
 import { DocenteService } from '../services/docente.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CargaHoraria } from '../interfaces/cargaHoraria.interface';
 
 @Component({
   selector: 'app-carga-horaria',
   templateUrl: './carga-horaria.component.html',
 })
-export class CargaHorariaComponent{
+export class CargaHorariaComponent implements OnInit {
+  cargaHorariaForm: FormGroup;
+  diasSemana: { label: string; value: number }[] = [];
 
-  // diasSemana: { label: string; value: string }[] = [];
-  // cargaHorariaGroup: FormGroup;
+  constructor(private docenteService: DocenteService, private fb: FormBuilder) {
+    this.cargaHorariaForm = this.fb.group({
+      cargaHoraria: this.fb.array([]),
+    });
+  }
 
-  // ngOnInit(): void {
-  //   this.loadDiasSemana();
-  // }
+  ngOnInit(): void {
+    this.loadDiasSemana();
+  }
 
-  // constructor(private docenteService: DocenteService, private fb: FormBuilder) {
-  //   this.cargaHorariaGroup = this.fb.group({
-  //     cargasHorarias: this.fb.array([]),
-  //   });
-  // }
+  get cargaHorariaArray(): FormArray {
+    return this.cargaHorariaForm.get('cargaHoraria') as FormArray;
+  }
 
-  // get cargasHorarias(): FormArray {
-  //   return this.cargaHorariaGroup.get('cargasHorarias') as FormArray;
-  // }
+  addCargaHoraria(): void {
+    const cargaHorariaGroup = this.fb.group({
+      diaSemana: ['', Validators.required],
+      actividad: ['', Validators.required],
+      horaDesde: ['', Validators.required],
+      horaHasta: ['', Validators.required],
+    });
+    this.cargaHorariaArray.push(cargaHorariaGroup);
+  }
 
-  // eliminarCargaHoraria(index: number) {
-  //   this.cargasHorarias.removeAt(index);
-  // }
+  removeCargaHoraria(index: number): void {
+    this.cargaHorariaArray.removeAt(index);
+  }
 
-  // agregarCargaHoraria() {
-  //   const cargaHorariaForm = this.fb.group({
-  //     idDocente: ['', Validators.required],
-  //     diaSemana: ['', Validators.required],
-  //     actividad: ['', Validators.required],
-  //     horaDesde: ['', Validators.required],
-  //     horaHasta: ['', Validators.required],
-  //   });
-  //   this.cargasHorarias.push(cargaHorariaForm);
-  // }
+  loadDiasSemana(): void {
+    this.docenteService.getDiasSemana().subscribe((res: any) => {
+      this.diasSemana = res.data.map((dia: any) => ({
+        label: dia.nombre,
+        value: dia.idDiaSemana,
+      }));
+    });
+  }
 
-  // loadDiasSemana() {
-  //   this.docenteService.getDiasSemana().subscribe((res: any) => {
-  //     this.diasSemana = res.data.map((dia: any) => ({
-  //       label: dia.nombre,
-  //       value: dia.idDiaSemana,
-  //     }));
-  //   });
-  // }
+  onSubmit(): void {
+    if (this.cargaHorariaForm.valid) {
+      const cargaHorariaList: CargaHoraria[] =
+        this.cargaHorariaForm.value.cargaHoraria;
 
-  // onSubmit() {
-  //   console.log('Submit');
-  // }
-  data: any[] = [];
+      const payload = {
+        cargaHoraria: cargaHorariaList,
+      };
 
-  paginatedData: any[] = [];
+      this.docenteService.createCargaHoraria(payload).subscribe();
+    }
+  }
 }
