@@ -11,7 +11,8 @@ import { AcademicResourcesComponent } from './pages/academic-resources/academic-
 import { ProfileComponent } from './pages/profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
-
+import { DocentesComponent } from './pages/docentes/docentes.component';
+import { DocenteModule } from '../docente/docente.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     HomeComponent,
     AcademicResourcesComponent,
     ProfileComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    DocentesComponent,
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     MaterialModule,
     AcademicResourcesModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    DocenteModule,
+  ],
 })
-export class HomeModule { }
+export class HomeModule {}

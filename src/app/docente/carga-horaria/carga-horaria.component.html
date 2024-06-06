@@ -1,0 +1,30 @@
+<form [formGroup]="cargaHorariaGroup" (ngSubmit)="onSubmit()">
+    <div formArrayName="cargasHorarias">
+        <div *ngFor="let cargaHoraria of cargasHorarias.controls; let i = index" [formGroupName]="i">
+            <div>
+                <label for="diaSemana">Día de la semana:</label>
+                <select id="diaSemana" formControlName="diaSemana">
+                    <option value="" disabled selected>Día Semana</option>
+                    <option *ngFor="let dia of diasSemana" [value]="dia.value">{{ dia.label }}</option>
+                </select>
+            </div>
+            <div>
+                <label for="actividad">Actividad:</label>
+                <input type="text" id="actividad" formControlName="actividad">
+            </div>
+            <div>
+                <label for="horaDesde">Hora desde:</label>
+                <input type="time" id="horaDesde" formControlName="horaDesde">
+            </div>
+            <div>
+                <label for="horaHasta">Hora hasta:</label>
+                <input type="time" id="horaHasta" formControlName="horaHasta">
+            </div>
+
+            <button type="button" (click)="eliminarCargaHoraria(i)">Eliminar</button>
+        </div>
+    </div>
+
+    <button type="button" (click)="agregarCargaHoraria()">Agregar Carga Horaria</button>
+    <button type="submit">Enviar</button>
+</form>
