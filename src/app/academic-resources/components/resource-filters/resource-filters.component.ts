@@ -11,7 +11,7 @@ export class ResourceFiltersComponent implements OnInit {
   
   nivelesType: { label: string; value: string }[] = [];
   asignaturas: { label: string; value: string }[] = [];
-
+  nombreRecurso: string = '';
 
   constructor(private recursoService: RecursoService) {}
 

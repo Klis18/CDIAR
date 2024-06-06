@@ -71,19 +71,6 @@ export class ResourcesTableComponent implements OnInit{
       this.asignatura = res.data.asignatura;
     });
   }
-
-  // get paginatedData(): ListaRecurso[] {
-  //   const start = (this.currentPage - 1) * this.itemsPerPage;
-  //   const end = start + this.itemsPerPage;
-
-  //   const filteredData = this.data.filter((item) =>
-  //     this.filterByUser
-  //       ? item.usuarioCreacion === this.filterByUser
-  //       : true && item.estadoRecurso !== 'Eliminado'
-  //   );
-  //   return filteredData.slice(start, end);
-  // }
-
   
   get paginatedData(): ListaRecurso[] {
     const start = (this.currentPage - 1) * this.itemsPerPage;

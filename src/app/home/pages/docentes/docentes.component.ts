@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { HomeService } from '../../services/home.service';
 
 @Component({
   selector: 'app-docentes',
@@ -6,5 +8,25 @@ import { Component } from '@angular/core';
   styles: ``
 })
 export class DocentesComponent {
+  usuario: string = '';
+  rol: string = '';
 
+  private homeService = inject(HomeService);
+
+  constructor(public dialog: MatDialog) {}
+
+  ngOnInit() {
+    this.homeService.obtenerDatosMenu().subscribe((user) => {
+      console.log(user);
+      this.usuario = user.data.userName;
+      this.rol = user.data.rol;
+    });
+  }
+
+  openDialog() {
+    // this.dialog.open(AddResourceComponent, {
+    //   width: '40%',
+    //   maxHeight: '80%',
+    // });
+  }
 }
