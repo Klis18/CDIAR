@@ -10,6 +10,7 @@ import { CardConfirmComponent } from './pages/card-confirm/card-confirm.componen
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from './components/input.components';
 import { SelectComponent } from './components/select.components';
+import { ResourcesPipeFilter } from './pipes/resources-pipe-filter.pipe';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { SelectComponent } from './components/select.components';
     CardConfirmComponent,
     InputComponent,
     SelectComponent,
+    ResourcesPipeFilter
   ],
   imports: [
     CommonModule,
@@ -32,6 +34,7 @@ import { SelectComponent } from './components/select.components';
     SidebarComponent,
     InputComponent,
     SelectComponent,
+    ResourcesPipeFilter
   ]
 })
 export class SharedModule { }

@@ -58,11 +58,17 @@ export class ResourcesTableComponent implements OnInit{
   itemsPerPage: number = 5;
   totalPages: number = 1;
   selectedTab = this.academic.selectedTab;
+  nombreRecurso: string = '';
+  nivel: string = '';
+  asignatura: string = '';
 
   listaRecursos() {
     this.recursoService.getRecursos().subscribe((res: any) => {
       console.log(res);
       this.data = res.data;
+      this.nombreRecurso = res.data.nombreRecurso;
+      this.nivel = res.data.nivel;
+      this.asignatura = res.data.asignatura;
     });
   }
 
@@ -113,30 +119,27 @@ export class ResourcesTableComponent implements OnInit{
   }
 
   //PRUEBA EDITAR RECURSO
-  editResource(element: any): void {
-    const dialogRef: MatDialogRef<EditResourceComponent> = this.dialog.open(
-      EditResourceComponent,
-      {
-        data: element.idRecurso,
-        width: '800px',
-        maxHeight: '750px',
-      },
-    );
+  // editResource(element: any): void {
+  //   const dialogRef: MatDialogRef<EditResourceComponent> = this.dialog.open(
+  //     EditResourceComponent,
+  //     {
+  //       data: element.idRecurso,
+  //       width: '800px',
+  //       maxHeight: '750px',
+  //     },
+  //   );
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === '200') {
-        //this._snackBar.sucess('Aviso', 'Registro editado correctamente.');
-        console.log('Registro editado correctamente');
-        this.listaRecursos();
-      } else if (result === '500') {
-        // this._snackBar.danger(
-        //   'Error',
-        //   'Oops! Algo salió mal al intentar editar el registro. Por favor, inténtalo de nuevo.',
-        // );
-        console.log('Error');
-      }
-    });
-  }
+  //   dialogRef.afterClosed().subscribe((result) => {
+  //     if (result === '200') {
+        
+  //       console.log('Registro editado correctamente');
+  //       this.listaRecursos();
+  //     } else if (result === '500') {
+        
+  //       console.log('Error');
+  //     }
+  //   });
+  // }
 
   prevPage() {
     if (this.currentPage > 1) {

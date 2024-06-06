@@ -25,7 +25,7 @@
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
-            <tr *ngFor="let item of paginatedData">
+            <tr *ngFor="let item of paginatedData | resourcesFilter: nombreRecurso : nivel : asignatura">
               <td class="px-6 py-4 whitespace-nowrap">
                 <mat-icon class="text-red-600 mr-2"
                   *ngIf="item.usuarioCreacion == usuario && selectedTab === 'Mis Recursos' && item.estadoRecurso != 'Aprobado' && item.docenteRevisor == ''" 

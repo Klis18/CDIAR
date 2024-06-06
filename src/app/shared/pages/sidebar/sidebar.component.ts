@@ -1,21 +1,26 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { AuthService } from '../../../auth/services/auth.service';
 import { Router } from '@angular/router';
+import { HomeService } from '../../../home/services/home.service';
+import { Role } from '../../../auth/interfaces/role';
 
 @Component({
   selector: 'sidebar',
   templateUrl: './sidebar.component.html',
   styles: ``,
 })
-export class SidebarComponent {
-  // private authService = inject(AuthService);
-  // private router = inject(Router);
+export class SidebarComponent implements OnInit{
 
-  // public isDropdownVisible = false;
+  private homeService = inject(HomeService);
+  rol: string = '';
+  
+  ngOnInit(): void {
+    this.homeService.obtenerDatosMenu().subscribe((user) => {
+      this.rol = user.data.rol;
+      this.menuOptions = this.menuOptions.filter(option => option.roles.includes(this.rol));
+    });
+  }
 
-  // toggleDropdown() {
-  //   this.isDropdownVisible = !this.isDropdownVisible;
-  // }
 
   menuOptions = [
     {
@@ -24,6 +29,7 @@ export class SidebarComponent {
       route: '/inicio',
       expanded: false,
       subOptions: [],
+      roles:['Docente','Admin','Estudiante']
     },
     {
       icon: 'collections_bookmark',
@@ -31,6 +37,7 @@ export class SidebarComponent {
       route: '/home/resources',
       expanded: false,
       subOptions: [],
+      roles:['Docente','Estudiante']
     },
     {
       icon: 'spa',
@@ -41,6 +48,7 @@ export class SidebarComponent {
         { name: 'Flashcards', route: '' },
         { name: 'Videolearn', route: '' },
       ],
+      roles:['Docente','Estudiante']
     },
     {
       icon: 'assignment',
@@ -48,6 +56,7 @@ export class SidebarComponent {
       route: '/productos',
       expanded: false,
       subOptions: [],
+      roles:['Docente','Estudiante']
     },
     {
       icon: 'trending_up',
@@ -58,9 +67,52 @@ export class SidebarComponent {
         { name: 'Metas', route: '' },
         { name: 'Rendimiento', route: '' },
       ],
+      roles:['Estudiante']
     },
-    // Agrega aquí más opciones si las necesitas
+    {
+      icon: 'calendar_today',
+      name: 'Carga Horaria',
+      route: '/productos',
+      expanded: false,
+      subOptions: [],
+      roles:['Docente']
+    },
+    {
+      icon: 'security',
+      name: 'Control y Seguridad',
+      route: '/contacto',
+      expanded: false,
+      subOptions: [
+        { name: 'Aprobación Docente', route: '' },
+        { name: 'Malla Académica', route: '' },
+        { name: 'Carga Horaria', route: '' },
+        { name: 'Asignación Revisor', route: '' },
+      ],
+      roles:['Admin']
+    },
+    {
+      icon: 'insert_drive_file',
+      name: 'Reportes',
+      route: '/contacto',
+      expanded: false,
+      subOptions: [
+        { name: 'Reporte de Usuarios', route: '' },
+        { name: 'Reporte de Simuladores', route: '' },
+      ],
+      roles:['Admin']
+    },
+    {
+      icon: ' insert_chart',
+      name: 'Dashboard',
+      route: '/productos',
+      expanded: false,
+      subOptions: [],
+      roles:['Admin']
+    },
   ];
+
+  
+
 
   toggleExpand(option: any) {
     option.expanded = !option.expanded;
