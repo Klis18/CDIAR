@@ -1,5 +1,5 @@
 import { Component, OnChanges, OnInit, ViewChild } from '@angular/core';
-import { RecursoService } from '../services/recurso.service';
+import { RecursoService } from '../../services/recurso.service';
 import { Nivel } from '../../interfaces/nivel.inteface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Recurso } from '../../interfaces/recurso.interface';

@@ -17,7 +17,13 @@ import { ResourcesFormComponent } from './components/resources-form/resources-fo
     EditResourceComponent,
     ResourcesFormComponent,
   ],
-  imports: [CommonModule, MaterialModule, FormsModule,ReactiveFormsModule, SharedModule],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule,
+  ],
   exports: [ResourceFiltersComponent, ResourcesTableComponent],
 })
 export class AcademicResourcesModule {}

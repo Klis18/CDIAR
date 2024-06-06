@@ -1,25 +1,21 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Nivel } from '../../interfaces/nivel.inteface';
-import { RecursoService } from '../services/recurso.service';
+import { RecursoService } from '../../services/recurso.service';
 
 @Component({
   selector: 'resources-filters',
   templateUrl: './resource-filters.component.html',
-  styles: ``
+  styles: ``,
 })
 export class ResourceFiltersComponent implements OnInit {
-  
   nivelesType: { label: string; value: string }[] = [];
   asignaturas: { label: string; value: string }[] = [];
 
-
   constructor(private recursoService: RecursoService) {}
-
 
   ngOnInit() {
     this.loadNiveles();
   }
-
 
   loadNiveles() {
     this.recursoService.getNiveles().subscribe((res: any) => {
@@ -42,5 +38,4 @@ export class ResourceFiltersComponent implements OnInit {
         }));
       });
   }
-
 }

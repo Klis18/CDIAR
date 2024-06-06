@@ -13,6 +13,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { DocentesComponent } from './pages/docentes/docentes.component';
 import { DocenteModule } from '../docente/docente.module';
+import { SecurityComponent } from './pages/security/security.component';
+import { SecurityModule } from '../security/security.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { DocenteModule } from '../docente/docente.module';
     ProfileComponent,
     ChangePasswordComponent,
     DocentesComponent,
+    SecurityComponent,
   ],
   imports: [
     CommonModule,
@@ -32,6 +35,7 @@ import { DocenteModule } from '../docente/docente.module';
     FormsModule,
     ReactiveFormsModule,
     DocenteModule,
+    SecurityModule,
   ],
 })
 export class HomeModule {}

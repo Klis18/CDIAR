@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Nivel } from '../../interfaces/nivel.inteface';
 import { Recurso, RecursoEdit } from '../../interfaces/recurso.interface';
 import { AddResourceComponent } from '../add-resource/add-resource.component';
-import { RecursoService } from '../services/recurso.service';
+import { RecursoService } from '../../services/recurso.service';
 
 @Component({
   selector: 'app-edit-resource',

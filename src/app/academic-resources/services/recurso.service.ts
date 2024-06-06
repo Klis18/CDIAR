@@ -1,16 +1,16 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
-import { HelperHttpService } from '../../../shared/services/helper.http.service';
-import { Nivel } from '../../interfaces/nivel.inteface';
-import { Asignatura } from '../../interfaces/asignatura.inteface';
-import { Estado } from '../../interfaces/estados.interface';
+import { HelperHttpService } from '../../shared/services/helper.http.service';
+import { Nivel } from '../interfaces/nivel.inteface';
+import { Asignatura } from '../interfaces/asignatura.inteface';
+import { Estado } from '../interfaces/estados.interface';
 import {
   ListaRecurso,
   Recurso,
   RecursoEdit,
   RecursoResponse,
-} from '../../interfaces/recurso.interface';
-import { Docente } from '../../interfaces/docente.interface';
+} from '../interfaces/recurso.interface';
+import { Docente } from '../interfaces/docente.interface';
 
 @Injectable({
   providedIn: 'root',

@@ -1,6 +1,15 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  inject,
+} from '@angular/core';
 import { ListaRecurso } from '../../interfaces/recurso.interface';
-import { RecursoService } from '../services/recurso.service';
+import { RecursoService } from '../../services/recurso.service';
 import { HomeService } from '../../../home/services/home.service';
 import { AcademicResourcesComponent } from '../../../home/pages/academic-resources/academic-resources.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -13,12 +22,10 @@ import { ParseTreeResult } from '@angular/compiler';
   templateUrl: './resources-table.component.html',
   styles: ``,
 })
-export class ResourcesTableComponent implements OnInit{
-  
+export class ResourcesTableComponent implements OnInit {
   @Input() filterByUser: string = '';
   @Input() filterByStatus: string = '';
   @Input() filterByRevisor: string = '';
-
 
   mensaje: string = '';
 
@@ -32,10 +39,8 @@ export class ResourcesTableComponent implements OnInit{
   }
 
   usuario: string = '';
-  
 
   private homeService = inject(HomeService);
-
 
   constructor(
     private recursoService: RecursoService,
@@ -51,7 +56,6 @@ export class ResourcesTableComponent implements OnInit{
       this.usuario = user.data.userName;
     });
   }
-
 
   data: ListaRecurso[] = [];
   currentPage: number = 1;
@@ -84,24 +88,32 @@ export class ResourcesTableComponent implements OnInit{
   //   return filteredData.slice(start, end);
   // }
 
-  
   get paginatedData(): ListaRecurso[] {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
-  
-    const filteredData = this.data.filter((item) =>
-      (this.filterByUser ? item.usuarioCreacion === this.filterByUser : true) &&
-      (this.filterByRevisor ? item.docenteRevisor === this.filterByRevisor : true) &&
-      (this.filterByStatus ? item.estadoRecurso === this.filterByStatus : item.estadoRecurso !== 'Eliminado')
+
+    const filteredData = this.data.filter(
+      (item) =>
+        (this.filterByUser
+          ? item.usuarioCreacion === this.filterByUser
+          : true) &&
+        (this.filterByRevisor
+          ? item.docenteRevisor === this.filterByRevisor
+          : true) &&
+        (this.filterByStatus
+          ? item.estadoRecurso === this.filterByStatus
+          : item.estadoRecurso !== 'Eliminado')
     );
     return filteredData.slice(start, end);
   }
 
   eliminarRecurso(idRecurso: number) {
-    const dialogRef = this.openDialog('¿Estás seguro de eliminar este recurso?');
+    const dialogRef = this.openDialog(
+      '¿Estás seguro de eliminar este recurso?'
+    );
     dialogRef.afterClosed().subscribe((res) => {
       if (res) {
-        console.log('Eliminando recurso',res);
+        console.log('Eliminando recurso', res);
         this.recursoService.eliminarRecurso(idRecurso).subscribe(() => {
           console.log('Recurso eliminado');
           this.listaRecursos();
@@ -110,12 +122,11 @@ export class ResourcesTableComponent implements OnInit{
     });
   }
 
-
   editarRecurso(idRecurso: number) {
-      this.dialog.open(EditResourceComponent, {
-        width: '40%',
-        data: idRecurso
-      });
+    this.dialog.open(EditResourceComponent, {
+      width: '40%',
+      data: idRecurso,
+    });
   }
 
   //PRUEBA EDITAR RECURSO
@@ -131,11 +142,11 @@ export class ResourcesTableComponent implements OnInit{
 
   //   dialogRef.afterClosed().subscribe((result) => {
   //     if (result === '200') {
-        
+
   //       console.log('Registro editado correctamente');
   //       this.listaRecursos();
   //     } else if (result === '500') {
-        
+
   //       console.log('Error');
   //     }
   //   });
@@ -153,48 +164,43 @@ export class ResourcesTableComponent implements OnInit{
     }
   }
 
-  getStyleColor(tipoRecurso: string){
+  getStyleColor(tipoRecurso: string) {
     switch (tipoRecurso) {
-        case 'Archivo':
-            return 'bg-cyan-700';
-        case 'Link':
-            return 'bg-orange-600';
-        case 'Imagen':
-            return 'bg-pink-700';
-        default:
-          return '';
+      case 'Archivo':
+        return 'bg-cyan-700';
+      case 'Link':
+        return 'bg-orange-600';
+      case 'Imagen':
+        return 'bg-pink-700';
+      default:
+        return '';
     }
   }
 
-  getIcon(tipoRecurso: string){
+  getIcon(tipoRecurso: string) {
     switch (tipoRecurso) {
-        case 'Archivo':
-            return 'insert_drive_file';
-        case 'Link':
-            return 'insert_drive_file';
-        case 'Imagen':
-            return 'image';
-        default:
-          return '';
+      case 'Archivo':
+        return 'insert_drive_file';
+      case 'Link':
+        return 'insert_drive_file';
+      case 'Imagen':
+        return 'image';
+      default:
+        return '';
     }
   }
 
-  
+  openFileInTab(item: any): string {
+    let urlRecurso: string = '';
 
-openFileInTab(item: any): string {
-
-  let urlRecurso: string = '';
-
-  if(item.tipoRecurso === 'Link'){
-    
-    urlRecurso = item.enlaceRecurso;
+    if (item.tipoRecurso === 'Link') {
+      urlRecurso = item.enlaceRecurso;
+    } else if (
+      item.tipoRecurso === 'Archivo' ||
+      item.tipoRecurso === 'Imagen'
+    ) {
+      urlRecurso = item.recurso;
+    }
+    return urlRecurso;
   }
-  else if(item.tipoRecurso === 'Archivo' || item.tipoRecurso === 'Imagen'){
-    urlRecurso = item.recurso;
-  }
-  return urlRecurso;
-}
-
-
-  
 }

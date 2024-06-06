@@ -8,7 +8,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { RecursoService } from '../services/recurso.service';
+import { RecursoService } from '../../services/recurso.service';
 import { Nivel } from '../../interfaces/nivel.inteface';
 import { Recurso } from '../../interfaces/recurso.interface';
 
