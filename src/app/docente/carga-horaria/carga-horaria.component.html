@@ -15,7 +15,7 @@
       </tr>
     </thead>
     <tbody class="bg-white divide-y divide-gray-200" formArrayName="cargaHoraria">
-      <tr *ngFor="let carga of cargaHorariaArray.controls; let i = index" [formGroupName]="i" class="hover:bg-gray-100">
+      <tr *ngFor="let carga of paginatedData; let i = index" [formGroupName]="i" class="hover:bg-gray-100">
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
           <button (click)="removeCargaHoraria(i)" class="text-red-500 hover:text-red-700">Eliminar</button>
         </td>

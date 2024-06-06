@@ -81,4 +81,7 @@ export class EditResourceComponent {
     console.log('EVENTO ASIGNATURA: ', event);
     this.asignaturas = event;
   }
+  cancelar() {
+    this.dialogRef.close();
+  }
 }

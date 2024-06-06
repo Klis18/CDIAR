@@ -26,7 +26,13 @@ export class DocenteService {
   }
 
   createCargaHoraria(payload: { cargaHoraria: CargaHoraria[] }) {
-    return this.http.post('cargaHoraria', payload, {
+    return this.http.post('cargaHoraria/crear', payload, {
+      headers: this.headers,
+    });
+  }
+
+  listaCargaHoraria(){
+    return this.http.get('cargaHoraria', {
       headers: this.headers,
     });
   }

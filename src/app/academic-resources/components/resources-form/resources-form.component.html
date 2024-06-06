@@ -65,22 +65,24 @@
                     </div>
                 </div>
             </div>
+            
+                <div class="col-span-4">
+                    <label for="Docente Revisor" class="block text-sm font-medium leading-6 text-gray-900">Revisor</label>
+                    <select id="docentes" formControlName="idDocenteRevisor"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                        <option value="" disabled selected>Docente</option>
+                        <option *ngFor="let docente of docentes" [value]="docente.value">{{ docente.label }}</option>
+                    </select>
+                </div>
+    
+                <div class="col-span-4">
+                    <label for="observacion" class="block text-sm font-medium leading-6 text-gray-900">Observación</label>
+                    <input type="text" id="observacion" formControlName="observacion"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Observacion">
+                </div>
 
-            <div class="col-span-4">
-                <label for="Docente Revisor" class="block text-sm font-medium leading-6 text-gray-900">Revisor</label>
-                <select id="docentes" formControlName="idDocenteRevisor"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                    <option value="" disabled selected>Docente</option>
-                    <option *ngFor="let docente of docentes" [value]="docente.value">{{ docente.label }}</option>
-                </select>
-            </div>
-
-            <div class="col-span-4">
-                <label for="observacion" class="block text-sm font-medium leading-6 text-gray-900">Observación</label>
-                <input type="text" id="observacion" formControlName="observacion"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    placeholder="Observacion">
-            </div>
+            
         </div>
     </form>
 </mat-dialog-content>

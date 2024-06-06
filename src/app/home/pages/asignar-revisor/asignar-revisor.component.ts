@@ -14,7 +14,7 @@ import { isEmpty } from 'rxjs';
 })
 export class AsignarRevisorComponent {
   @Input() filterByStatus: string = '';
-  // selectedTab = 'Recursos Académicos';
+  //selectedTab = 'Recursos Académicos';
   
 
 
@@ -66,9 +66,7 @@ export class AsignarRevisorComponent {
     const filteredData = this.data.filter(
       (item) =>
         item.docenteRevisor === '' && item.estadoRecurso === 'Ingresado'
-        // (this.filterByStatus
-        //   ? item.estadoRecurso === this.filterByStatus
-        //   : item.estadoRecurso !== 'Eliminado')
+        
     );
     return filteredData.slice(start, end);
   }
@@ -91,6 +89,21 @@ export class AsignarRevisorComponent {
         return '';
     }
   }
+
+  openFileInTab(item: any): string {
+    let urlRecurso: string = '';
+
+    if (item.tipoRecurso === 'Link') {
+      urlRecurso = item.enlaceRecurso;
+    } else if (
+      item.tipoRecurso === 'Archivo' ||
+      item.tipoRecurso === 'Imagen'
+    ) {
+      urlRecurso = item.recurso;
+    }
+    return urlRecurso;
+  }
+
 
   //FIN PRUEBA
 }

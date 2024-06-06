@@ -54,7 +54,7 @@
     </div>
   
     <div *ngIf="selectedTab == 'Recursos Académicos'" class=" pt-5 pb-5">
-      <!-- <resources-table [filterByStatus]="'Ingresado'"></resources-table> -->
+      <!-- <resources-table [filterByStatus]="'Ingresado'" [filterByRevisor]="''"></resources-table> -->
        <!---TABLA PRUEBA-->
        <div class="flex flex-col" *ngIf="data.length > 0; else noData">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -89,7 +89,9 @@
                   
                       <mat-icon class="text-blue-800 mr-2"
                         (click)="editarRecurso(item.idRecurso)">edit</mat-icon>
-  
+                        <a [href]="openFileInTab(item)" target="_blank">
+                          <mat-icon class="text-blue-800">visibility</mat-icon>
+                        </a>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ item.nombreRecurso }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ item.asignatura }}</td>

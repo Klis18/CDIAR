@@ -1,3 +1,4 @@
+
 <div class="flex flex-col" *ngIf="data.length > 0; else noData">
   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -26,13 +27,16 @@
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
-            <tr *ngFor="let item of paginatedData | resourcesFilter: nombreRecurso : nivel : asignatura">
+            <tr *ngFor="let item of paginatedData">
               <td class="px-6 py-4 whitespace-nowrap">
                 <mat-icon class="text-red-600 mr-2"
-                  *ngIf="item.usuarioCreacion == usuario && selectedTab === 'Mis Recursos' && item.estadoRecurso != 'Aprobado' && item.docenteRevisor == ''"
+                  *ngIf="item.usuarioCreacion == usuario && selectedTab === 'Mis Recursos' && item.estadoRecurso != 'Aprobado' && item.docenteRevisor === ''"
                   (click)="eliminarRecurso(item.idRecurso)">delete</mat-icon>
                 <mat-icon class="text-blue-800 mr-2"
-                  *ngIf="item.usuarioCreacion == usuario && selectedTab === 'Mis Recursos'|| selectedTab ==='Recursos Académicos' && item.estadoRecurso != 'Aprobado' && item.docenteRevisor == ''" 
+                  *ngIf="item.usuarioCreacion == usuario && selectedTab === 'Mis Recursos' && item.estadoRecurso != 'Aprobado' && item.docenteRevisor === ''" 
+                  (click)="editarRecurso(item.idRecurso)">edit</mat-icon>
+                  <mat-icon class="text-blue-800 mr-2"
+                  *ngIf="item.docenteRevisor == usuario && selectedTab === 'Por Aprobar' && item.estadoRecurso != 'Aprobado'" 
                   (click)="editarRecurso(item.idRecurso)">edit</mat-icon>
                 <a [href]="openFileInTab(item)" target="_blank">
                   <mat-icon class="text-blue-800">visibility</mat-icon>
