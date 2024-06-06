@@ -9,18 +9,18 @@ import { Role } from '../../../auth/interfaces/role';
   templateUrl: './sidebar.component.html',
   styles: ``,
 })
-export class SidebarComponent implements OnInit{
-
+export class SidebarComponent implements OnInit {
   private homeService = inject(HomeService);
   rol: string = '';
-  
+
   ngOnInit(): void {
     this.homeService.obtenerDatosMenu().subscribe((user) => {
       this.rol = user.data.rol;
-      this.menuOptions = this.menuOptions.filter(option => option.roles.includes(this.rol));
+      this.menuOptions = this.menuOptions.filter((option) =>
+        option.roles.includes(this.rol)
+      );
     });
   }
-
 
   menuOptions = [
     {
@@ -29,7 +29,7 @@ export class SidebarComponent implements OnInit{
       route: '/inicio',
       expanded: false,
       subOptions: [],
-      roles:['Docente','Admin','Estudiante']
+      roles: ['Docente', 'Admin', 'Estudiante'],
     },
     {
       icon: 'collections_bookmark',
@@ -37,7 +37,7 @@ export class SidebarComponent implements OnInit{
       route: '/home/resources',
       expanded: false,
       subOptions: [],
-      roles:['Docente','Estudiante']
+      roles: ['Docente', 'Estudiante'],
     },
     {
       icon: 'spa',
@@ -48,7 +48,7 @@ export class SidebarComponent implements OnInit{
         { name: 'Flashcards', route: '' },
         { name: 'Videolearn', route: '' },
       ],
-      roles:['Docente','Estudiante']
+      roles: ['Docente', 'Estudiante'],
     },
     {
       icon: 'assignment',
@@ -56,7 +56,7 @@ export class SidebarComponent implements OnInit{
       route: '/productos',
       expanded: false,
       subOptions: [],
-      roles:['Docente','Estudiante']
+      roles: ['Docente', 'Estudiante'],
     },
     {
       icon: 'trending_up',
@@ -67,15 +67,15 @@ export class SidebarComponent implements OnInit{
         { name: 'Metas', route: '' },
         { name: 'Rendimiento', route: '' },
       ],
-      roles:['Estudiante']
+      roles: ['Estudiante'],
     },
     {
       icon: 'calendar_today',
       name: 'Carga Horaria',
-      route: '/productos',
+      route: '/home/docentes',
       expanded: false,
       subOptions: [],
-      roles:['Docente']
+      roles: ['Docente'],
     },
     {
       icon: 'security',
@@ -88,7 +88,7 @@ export class SidebarComponent implements OnInit{
         { name: 'Carga Horaria', route: '' },
         { name: 'Asignación Revisor', route: '' },
       ],
-      roles:['Admin']
+      roles: ['Admin'],
     },
     {
       icon: 'insert_drive_file',
@@ -99,7 +99,7 @@ export class SidebarComponent implements OnInit{
         { name: 'Reporte de Usuarios', route: '' },
         { name: 'Reporte de Simuladores', route: '' },
       ],
-      roles:['Admin']
+      roles: ['Admin'],
     },
     {
       icon: ' insert_chart',
@@ -107,15 +107,11 @@ export class SidebarComponent implements OnInit{
       route: '/productos',
       expanded: false,
       subOptions: [],
-      roles:['Admin']
+      roles: ['Admin'],
     },
   ];
-
-  
-
 
   toggleExpand(option: any) {
     option.expanded = !option.expanded;
   }
-
 }

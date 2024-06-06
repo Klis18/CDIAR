@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DocenteService } from '../services/docente.service';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-carga-horaria',
@@ -16,13 +10,14 @@ export class CargaHorariaComponent implements OnInit {
   diasSemana: { label: string; value: string }[] = [];
   cargaHorariaGroup: FormGroup;
 
+  ngOnInit(): void {
+    this.loadDiasSemana();
+  }
+
   constructor(private docenteService: DocenteService, private fb: FormBuilder) {
     this.cargaHorariaGroup = this.fb.group({
       cargasHorarias: this.fb.array([]),
     });
-  }
-  ngOnInit(): void {
-    this.loadDiasSemana();
   }
 
   get cargasHorarias(): FormArray {
