@@ -16,6 +16,8 @@ const routes: Routes = [
     path:'academic-resources',
     loadChildren: () => import('./academic-resources/academic-resources.module').then(m => m.AcademicResourcesModule),
   },
+  {path: 'security', loadChildren: () => import('./security/security.module').then(m => m.SecurityModule)},
+  {path: 'docentes', loadChildren: () => import('./docente/docente.module').then(m => m.DocenteModule)},
   {
     path: '**',
     redirectTo: 'auth',

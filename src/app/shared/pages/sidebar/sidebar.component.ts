@@ -83,10 +83,10 @@ export class SidebarComponent implements OnInit {
       route: '/contacto',
       expanded: false,
       subOptions: [
-        { name: 'Aprobación Docente', route: '' },
+        { name: 'Aprobación Docente', route: '/home/aprobacion-docente' },
         { name: 'Malla Académica', route: '' },
         { name: 'Carga Horaria', route: '' },
-        { name: 'Asignación Revisor', route: '' },
+        { name: 'Asignación Revisor', route: '/home/asignacion-revisor' },
       ],
       roles: ['Admin'],
     },

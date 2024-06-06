@@ -1,4 +1,4 @@
-import { inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HelperHttpService } from '../../shared/services/helper.http.service';
 import { HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../auth/services/auth.service';
@@ -8,7 +8,13 @@ import {
 } from '../interfaces/lista-docentes.interface';
 import { DocenteAprobacion } from '../interfaces/docente-aprobacion.interface';
 
+
+@Injectable({
+  providedIn: 'root',
+})
+
 export class SecurityService {
+
   private http = inject(HelperHttpService);
   private headers = new HttpHeaders().set(
     'Authorization',

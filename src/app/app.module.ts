@@ -20,6 +20,11 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { AcademicResourcesModule } from './academic-resources/academic-resources.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DocenteModule } from './docente/docente.module';
+import { SecurityModule } from './security/security.module';
+import { AprobarDocenteComponent } from './security/components/aprobar-docente/aprobar-docente.component';
+import { HomeModule } from './home/home.module';
+import { RecursoService } from './academic-resources/services/recurso.service';
+import { AcademicResourcesComponent } from './home/pages/academic-resources/academic-resources.component';
 
 registerLocaleData(localeEsEC);
 
@@ -49,6 +54,10 @@ registerLocaleData(localeEsEC);
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy,
+    },
+    {
+      provide: AcademicResourcesComponent,
+      useClass: AcademicResourcesComponent,
     },
     provideAnimationsAsync(),
   ],
