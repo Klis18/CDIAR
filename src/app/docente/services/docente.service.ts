@@ -1,10 +1,11 @@
 import { inject } from '@angular/core';
-import { HelperHttpService } from '../../shared/services/helper.http.service';
 import { HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../auth/services/auth.service';
 import { DiasSemana } from '../interfaces/dias-semana.interface';
+import { HelperHttpService } from '../../shared/services/helper.http.service';
 
 export class DocenteService {
+
   private http = inject(HelperHttpService);
   private headers = new HttpHeaders().set(
     'Authorization',
