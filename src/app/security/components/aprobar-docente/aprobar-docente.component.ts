@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SecurityService } from '../../services/security.service';
-import { ListaDocentes } from '../../interfaces/lista-docentes.interface';
+import {
+  ListaDocentes,
+  ListaDocentesPorAprobar,
+} from '../../interfaces/lista-docentes.interface';
 import { DocenteAprobacion } from '../../interfaces/docente-aprobacion.interface';
 
 @Component({
@@ -9,7 +12,7 @@ import { DocenteAprobacion } from '../../interfaces/docente-aprobacion.interface
   styles: ``,
 })
 export class AprobarDocenteComponent implements OnInit {
-  data: ListaDocentes[] = [];
+  data: ListaDocentesPorAprobar[] = [];
   nombresCompletos: string = '';
   currentPage: number = 1;
   itemsPerPage: number = 5;
@@ -35,7 +38,7 @@ export class AprobarDocenteComponent implements OnInit {
     });
   }
 
-  get paginatedData(): ListaDocentes[] {
+  get paginatedData(): ListaDocentesPorAprobar[] {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
     const filteredData = this.data.filter((docente) => {
