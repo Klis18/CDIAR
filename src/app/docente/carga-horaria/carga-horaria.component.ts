@@ -52,4 +52,7 @@ export class CargaHorariaComponent{
   // onSubmit() {
   //   console.log('Submit');
   // }
+  data: any[] = [];
+
+  paginatedData: any[] = [];
 }

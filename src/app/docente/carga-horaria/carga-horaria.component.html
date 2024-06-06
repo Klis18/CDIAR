@@ -30,4 +30,60 @@
 </form> -->
 
 
-<P>HOLA</P>
+<div class="flex flex-col" *ngIf="data.length > 0; else noData">
+    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead>
+              <tr >
+                <th class=" px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-blue-900">
+                  <p >Acciones</p>
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-blue-900">
+                  NOMBRE 1</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-blue-900">
+                  NOMBRE 2</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-blue-900">
+                  NOMBRE 3</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-blue-900">
+                  NOMBRE 4</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-blue-900">Tipo
+                  NOMBRE 5</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-blue-900">
+                  NOMBRE 6</th>
+                <th  class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-blue-900">
+                  NOMBRE 7</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <tr *ngFor="let item of paginatedData">
+                <td class="px-6 py-4 whitespace-nowrap">
+                 
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">{{ item.nombreRecurso }}</td>
+                <td class="px-6 py-4 whitespace-nowrap">{{ item.asignatura }}</td>
+                <td class="px-6 py-4 whitespace-nowrap">{{ item.nivel }}</td>
+                <td class="px-6 py-4 whitespace-nowrap">{{ item.fechaCreacion | date }}</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div
+                    class="flex justify-center items-center m-1 font-medium py-1 px-2 pt-2 pb-2 rounded-full text-white"
+                    >
+                    <div class="text-xs font-normal leading-none max-w-full flex-initial">
+                      {{item.tipoRecurso}}
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">{{ item.usuarioCreacion }}</td>
+                <td class="px-6 py-4 whitespace-nowrap">{{ item.estadoRecurso }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #noData>
+    <div class="text-center text-xl">No hay datos disponibles.</div>
+  </ng-template>
