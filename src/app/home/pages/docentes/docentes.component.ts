@@ -5,13 +5,14 @@ import { HomeService } from '../../services/home.service';
 @Component({
   selector: 'app-docentes',
   templateUrl: './docentes.component.html',
-  styles: ``
+  styles: ``,
 })
 export class DocentesComponent {
   usuario: string = '';
   rol: string = '';
 
   private homeService = inject(HomeService);
+  mostrarTablaCargaHoraria = false;
 
   constructor(public dialog: MatDialog) {}
 
@@ -24,9 +25,6 @@ export class DocentesComponent {
   }
 
   openDialog() {
-    // this.dialog.open(AddResourceComponent, {
-    //   width: '40%',
-    //   maxHeight: '80%',
-    // });
+    this.mostrarTablaCargaHoraria = true;
   }
 }

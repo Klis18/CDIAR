@@ -100,17 +100,17 @@ export class AprobarDocenteComponent implements OnInit {
     return docente;
   }
 
-  aprobarDocente(docente: DocenteAprobacion) {
-    docente.aprobado = true;
-    this.securityService.aprobarDocente(docente).subscribe((res) => {
-      console.log(res);
-    });
-  }
+  // aprobarDocente(docente: DocenteAprobacion) {
+  //   docente.aprobado = true;
+  //   this.securityService.aprobarDocente(docente).subscribe((res) => {
+  //     console.log(res);
+  //   });
+  // }
 
-  rechazarDocente(docente: DocenteAprobacion) {
-    docente.aprobado = false;
-    this.securityService.aprobarDocente(docente).subscribe((res) => {
-      console.log(res);
-    });
-  }
+  // rechazarDocente(docente: DocenteAprobacion) {
+  //   docente.aprobado = false;
+  //   this.securityService.aprobarDocente(docente).subscribe((res) => {
+  //     console.log(res);
+  //   });
+  // }
 }
